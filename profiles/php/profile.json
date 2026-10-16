@@ -1,0 +1,17 @@
+{
+  "id": "php",
+  "name": "PHP",
+  "languages": ["PHP"],
+  "status": "controls-validated",
+  "guide": "PROFILE.md",
+  "templates": ["templates/ArchitectureBoundaryGuardTest.template.php", "templates/check-coverage.template.php", "templates/composer.scripts.template.json", "templates/ci.template.yml"],
+  "tests": ["tests/ArchitectureTemplateRegressionTest.php", "tests/test_coverage_cli.py"],
+  "implemented_controls": ["bounded-architecture-guard", "clover-statement-coverage-threshold"],
+  "project_gates": ["architecture", "tenant-isolation", "authorization", "data-integrity", "retry-safety", "real-entrypoint", "operations"],
+  "validation": {
+    "environment": "Windows PHP 8.5.1 and Python 3.13.6; WSL PHP 8.2.34; PHPUnit 11.5.55",
+    "command": "See PROFILE.md: isolated PHPUnit regression command and python profiles/php/tests/test_coverage_cli.py",
+    "result": "2026-10-16: relocated copy passed 24 architecture tests (453 Windows assertions, 449 WSL assertions) and 12 coverage CLI tests in each runtime. Synthetic fixtures only; no application bootstrap or operational configuration loaded.",
+    "limitations": ["Bounded syntactic checks, not full dependency/type resolution", "No application/payment/tenant workflow implemented by this profile", "CI and live Clover generation need destination-project verification"]
+  }
+}

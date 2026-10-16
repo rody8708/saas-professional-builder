@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "selection_policy": "explicit-or-detected-never-default",
+  "required_project_gates": [
+    "architecture",
+    "tenant-isolation",
+    "authorization",
+    "data-integrity",
+    "retry-safety",
+    "real-entrypoint",
+    "operations"
+  ],
+  "profiles": [
+    { "id": "php", "path": "php/profile.json" },
+    { "id": "node-typescript", "path": "node-typescript/profile.json" },
+    { "id": "python", "path": "python/profile.json" },
+    { "id": "dotnet", "path": "dotnet/profile.json" }
+  ]
+}

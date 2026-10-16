@@ -1,0 +1,14 @@
+{
+  "roots": {"domain": "src/domain", "application": "src/application"},
+  "aliases": {"@domain": "src/domain", "@application": "src/application", "@infrastructure": "src/infrastructure", "@presentation": "src/presentation"},
+  "layers": {
+    "domain": {
+      "forbidden_paths": ["src/application", "src/infrastructure", "src/presentation"],
+      "forbidden_packages": ["pg", "mysql", "mysql2", "sequelize", "typeorm", "@prisma/client", "knex", "better-sqlite3", "sqlite3", "mongodb", "mongoose", "redis", "ioredis", "express", "fastify", "@nestjs/common", "@nestjs/core", "axios", "undici", "node:http", "http", "node:https", "https", "node:net", "net", "node:tls", "tls", "node:fs", "fs"]
+    },
+    "application": {
+      "forbidden_paths": ["src/infrastructure", "src/presentation"],
+      "forbidden_packages": ["pg", "mysql", "mysql2", "sequelize", "typeorm", "@prisma/client", "knex", "better-sqlite3", "sqlite3", "mongodb", "mongoose", "redis", "ioredis", "express", "fastify", "@nestjs/common", "@nestjs/core", "axios", "undici", "node:http", "http", "node:https", "https", "node:net", "net", "node:tls", "tls", "node:fs", "fs"]
+    }
+  }
+}

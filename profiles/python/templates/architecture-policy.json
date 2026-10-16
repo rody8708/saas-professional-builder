@@ -1,0 +1,14 @@
+{
+  "package": "example_saas",
+  "source_root": "src/example_saas",
+  "layers": {
+    "domain": {
+      "forbidden_internal_layers": ["application", "infrastructure", "presentation"],
+      "forbidden_imports": ["sqlalchemy", "django", "fastapi", "flask", "starlette", "requests", "httpx", "aiohttp", "psycopg", "psycopg2", "pymysql", "mysql", "sqlite3", "redis", "boto3", "celery", "urllib", "http", "socket"]
+    },
+    "application": {
+      "forbidden_internal_layers": ["infrastructure", "presentation"],
+      "forbidden_imports": ["sqlalchemy", "django", "fastapi", "flask", "starlette", "requests", "httpx", "aiohttp", "psycopg", "psycopg2", "pymysql", "mysql", "sqlite3", "redis", "boto3", "celery", "urllib", "http", "socket"]
+    }
+  }
+}

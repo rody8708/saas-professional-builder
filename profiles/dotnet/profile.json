@@ -1,0 +1,28 @@
+{
+  "id": "dotnet",
+  "name": ".NET / C# with ASP.NET Core and external persistence adapters",
+  "languages": ["C#"],
+  "status": "controls-validated",
+  "guide": "PROFILE.md",
+  "templates": ["templates/architecture-guard.example.json"],
+  "tests": ["tests/ArchitectureGuard.Regression.csproj", "tests/Program.cs"],
+  "implemented_controls": [
+    "Roslyn syntax checks for configured Domain/Application namespace and type dependencies",
+    "Literal direct/transitive project references and explicit package/framework/assembly dependency checks",
+    "Fail-closed source/configuration/project discovery, syntax and unresolved conditional-source checks",
+    "Isolated synthetic regression executable and real CLI exit-code tests with verified temporary cleanup"
+  ],
+  "project_gates": ["architecture", "tenant-isolation", "authorization", "data-integrity", "retry-safety", "real-entrypoint", "operations"],
+  "validation": {
+    "environment": "Windows; .NET SDK 8.0.413 selected by global.json; .NET 8 runtime; PowerShell 7.6.5; SDK-bundled Roslyn; offline NuGet sources",
+    "command": "From profiles/dotnet: pwsh -NoProfile -File ./tools/Invoke-Profile.ps1 -Mode Test",
+    "result": "2026-10-16: nested-namespace bypass reproduced before correction (42 scenarios, one expected failure). After composing enclosing namespace blocks, build passed with zero warnings/errors; 48 scenarios passed with zero failures, including five real CLI scenarios and permitted/forbidden dotted, nested and multi-segment namespace cases. All 48 synthetic fixtures and temporary build/restore/CLI-home directories were removed and verified. No bin/obj/artifacts or owned temporary directories remained.",
+    "limitations": [
+      "Only package controls are tested; no destination application, database, identity provider or payment service was exercised.",
+      "GitHub CI and Linux execution were not run.",
+      "Source inspection is not semantic analysis or full evaluated MSBuild/NuGet dependency resolution; generated code, imported props/targets, reflection and dynamic behavior require additional checks.",
+      "Inactive conditional source is rejected rather than certified; build-aware verification is required for such projects.",
+      "The destination must implement and verify all seven project gates, including architecture beyond this bounded scanner."
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+# Secrets and operational data
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sql
+*.log
+logs/
+backups/
+private/
+
+# Dependencies, generated output and caches
+vendor/
+node_modules/
+build/
+bin/
+obj/
+dist/
+TestResults/
+.dotnet/
+coverage/
+.phpunit.cache/
+.phpunit.result.cache
+__pycache__/
+*.pyc
+.venv/
+
+# Archives and editor/OS artifacts
+*.zip
+*.7z
+*.tar
+*.gz
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

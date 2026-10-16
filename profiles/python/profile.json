@@ -1,0 +1,28 @@
+{
+  "id": "python",
+  "name": "Python AST architecture controls",
+  "languages": ["Python"],
+  "status": "controls-validated",
+  "guide": "PROFILE.md",
+  "templates": ["templates/architecture_guard.py", "templates/architecture-policy.json"],
+  "tests": ["tests/test_architecture_guard.py"],
+  "implemented_controls": [
+    "Required package/domain/application roots and nonempty Python scans",
+    "AST static import boundaries, including nested relative and package imports",
+    "Configured internal-layer and persistence/transport package exclusions",
+    "Known literal dynamic loaders and rejection of unresolved known loader targets",
+    "Syntax/comment/string handling and isolated temporary-fixture cleanup regressions"
+  ],
+  "project_gates": ["architecture", "tenant-isolation", "authorization", "data-integrity", "retry-safety", "real-entrypoint", "operations"],
+  "validation": {
+    "environment": "Windows; Python 3.13.6; unittest, ast and standard libraries only",
+    "command": "python -B -m unittest discover -s profiles/python/tests -p \"test_*.py\" -v",
+    "result": "18 tests passed; 0 failed; 0 skipped. Positive and negative CLI outcomes verified with synthetic temporary fixtures and cleanup.",
+    "limitations": [
+      "Profile controls validated; no complete SaaS application or framework integration supplied.",
+      "AST direct-dependency checks do not resolve arbitrary loader reassignment, eval/exec, import hooks, transitive dependencies or generated code.",
+      "Typing, lint, complete dependency analysis and project-specific coverage gates must be configured and run in each adopting project.",
+      "No database, auth, payment, tenancy, deployed entry-point or operational product validation was performed."
+    ]
+  }
+}

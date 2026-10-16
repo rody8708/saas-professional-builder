@@ -1,0 +1,16 @@
+{
+  "layers": [
+    {
+      "name": "Domain",
+      "sourceRoot": "src/Example.Domain",
+      "forbiddenNamespacePrefixes": ["Example.Application", "Example.Infrastructure", "Example.Persistence", "Microsoft.AspNetCore", "Microsoft.EntityFrameworkCore", "Microsoft.Data", "System.Data", "Dapper", "Npgsql", "MySqlConnector", "MySql.Data"],
+      "forbiddenProjectNameFragments": ["Application", "Infrastructure", "Persistence"]
+    },
+    {
+      "name": "Application",
+      "sourceRoot": "src/Example.Application",
+      "forbiddenNamespacePrefixes": ["Example.Infrastructure", "Example.Persistence", "Microsoft.AspNetCore", "Microsoft.EntityFrameworkCore", "Microsoft.Data", "System.Data", "Dapper", "Npgsql", "MySqlConnector", "MySql.Data"],
+      "forbiddenProjectNameFragments": ["Infrastructure", "Persistence"]
+    }
+  ]
+}

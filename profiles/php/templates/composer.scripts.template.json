@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "analyze": "phpstan analyse --no-progress",
+    "test": "phpunit --configuration phpunit.xml --exclude-group mysql --fail-on-empty-test-suite",
+    "test:unit": "phpunit --configuration phpunit.xml --testsuite Unit --fail-on-empty-test-suite",
+    "test:integration": "phpunit --configuration phpunit.xml --testsuite Integration --fail-on-empty-test-suite",
+    "test:mysql": "phpunit --configuration phpunit.xml --testsuite MySQL --fail-on-empty-test-suite --fail-on-skipped",
+    "test:coverage": "phpunit --configuration phpunit.xml --testsuite Unit --coverage-clover build/coverage.xml --fail-on-empty-test-suite --fail-on-warning",
+    "coverage:check": "@php tools/check-coverage.php build/coverage.xml 80"
+  }
+}
