@@ -1,20 +1,20 @@
-# 05 · Fix a demonstrated root cause
+# 05 · Corregir una causa raíz demostrada
 
-## Bug
-{{Observed behavior, expected behavior, affected users/surfaces, sanitized evidence}}
+## Defecto
+{{Comportamiento observado, comportamiento esperado, usuarios/interfaces afectados y evidencia sin datos sensibles}}
 
-## Preconditions
-Read rules/profile, relevant callers and existing evidence. Use the project's branch/base policy; preserve unrelated work. Operate only on synthetic, isolated resources and never read operational credentials or customer data for fixtures.
+## Condiciones previas
+Lee las reglas y el perfil, los puntos de llamada pertinentes y la evidencia existente. Usa la política de rama/base del proyecto; conserva el trabajo ajeno al alcance. Opera únicamente sobre recursos sintéticos y aislados; nunca leas credenciales operativas ni datos de clientes para preparar datos de prueba.
 
-## Procedure
-1. Map the symptom, candidate cause and every entry point reaching the affected logic.
-2. Reproduce with synthetic input or controlled fault injection. If reproduction is unavailable, report the limitation without calling the cause demonstrated.
-3. Add a regression and run it on the unfixed version; it must fail because of the original defect.
-4. Correct the cause at the responsible boundary. Inspect sibling paths for the same defect and handle them within scope or report them.
-5. Run the focused regression and mandatory checks; broaden according to impact, not repetition for its own sake.
-6. Replay the affected flow through its real lab entry point, including relevant denial, timeout, retry, duplicate and partial-failure paths. Verify observable result, durable state and side effects.
-7. Record revision, setup, expected/actual results, tests and pending evidence using [the verification template](../templates/verification-record.template.md).
-8. Teardown only owned resources and verify their absence.
+## Procedimiento
+1. Relaciona el síntoma, la posible causa y cada punto de entrada que alcance la lógica afectada.
+2. Reproduce el fallo con entrada sintética o inyección controlada de fallos. Si no es posible reproducirlo, comunica la limitación sin llamar demostrada a la causa.
+3. Añade una prueba de regresión y ejecútala sobre la versión sin corregir; debe fallar por el defecto original.
+4. Corrige la causa en el límite responsable. Inspecciona rutas equivalentes por si comparten el mismo defecto y atiéndelas dentro del alcance o comunícalas.
+5. Ejecuta la regresión focalizada y las comprobaciones obligatorias; amplía las pruebas según el impacto, sin repetir por repetir.
+6. Repite el flujo afectado mediante su punto de entrada real en el laboratorio, incluidas las rutas pertinentes de denegación, tiempo de espera agotado, reintento, duplicado y fallo parcial. Verifica el resultado observable, el estado duradero y los efectos secundarios.
+7. Registra revisión, preparación, resultados esperados/reales, pruebas y evidencia pendiente con la [plantilla de verificación](../templates/verification-record.template.md).
+8. Desmonta únicamente los recursos propios y verifica su ausencia.
 
-## Deliver
-Cause, fix, fail-before/pass-after evidence, real-flow replay, cleanup and gaps. A healthy endpoint or green suite alone does not close the defect. Do not weaken assertions, suppress failures as success or hide violations in exclusions.
+## Entregar
+Causa, corrección, evidencia de fallo previo/éxito posterior, repetición del flujo real, limpieza y brechas. Un endpoint saludable o una suite aprobada por sí solos no cierran el defecto. No debilites las aserciones, presentes fallos suprimidos como éxitos ni ocultes infracciones mediante exclusiones.

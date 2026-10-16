@@ -1,24 +1,24 @@
-# 09 · Change billing safely
+# 09 · Cambiar la facturación de forma segura
 
-## Change
-{{Commercial rule, affected scopes, provider and acceptance criteria}}
-Read project rules/profile and [billing guidance](../core/billing-entitlements.md). Billing is in scope only when requested.
+## Cambio
+{{Regla comercial, ámbitos afectados, proveedor y criterios de aceptación}}
+Lee las reglas y el perfil del proyecto y la [guía de facturación](../core/billing-entitlements.md). La facturación solo está dentro del alcance cuando se solicita.
 
-## Design before effects
-- Define the authoritative catalog, entitlement, permission and quota separately.
-- Describe durable transition/operation/attempt, frozen payload, exact amounts/currency and uniqueness boundary.
-- Reuse one idempotency key for transport retry, timeout, lost response or local failure after remote success. A new payment attempt requires a confirmed prior outcome and an explicit policy.
-- Define provider confirmation, account/scope/object binding, idempotency window, unknown-outcome reconciliation and manual escalation.
-- Specify cancellation, reversal, suspension and retry timing; email availability does not drive the payment clock.
-- Keep privacy requests and service cancellation separate according to the chosen policy.
+## Diseñar antes de producir efectos
+- Define por separado el catálogo autoritativo, los derechos de acceso, los permisos y las cuotas.
+- Describe la transición/operación/intento duraderos, el contenido de solicitud fijado, los importes/moneda exactos y el ámbito de unicidad.
+- Reutiliza una misma clave de idempotencia ante reintentos de transporte, tiempo de espera agotado, respuesta perdida o fallo local tras un éxito remoto. Un nuevo intento de pago requiere confirmar el resultado anterior y una política explícita.
+- Define confirmación del proveedor, vinculación de cuenta/ámbito/objeto, ventana de idempotencia, reconciliación de resultados desconocidos y escalamiento manual.
+- Especifica cancelación, reversión, suspensión y calendario de reintentos; la disponibilidad del correo no determina el calendario del pago.
+- Mantén separadas las solicitudes de privacidad y la cancelación del servicio según la política elegida.
 
-## Implement
-Use the selected provider's adapter and actual supported APIs. Verify incoming signatures over raw body with timestamp/replay controls, without browser session/CSRF. Claims, leases and fencing protect concurrent processing. Durable downstream effects need outbox or equivalent delivery. Preserve immutable financial facts and model later adjustments explicitly.
+## Implementar
+Usa el adaptador del proveedor elegido y sus API realmente soportadas. Verifica las firmas entrantes sobre el cuerpo original con controles de marca temporal/repetición, sin sesión de navegador ni CSRF. Las reclamaciones exclusivas, las concesiones temporales y la exclusión de trabajadores obsoletos protegen el procesamiento concurrente. Los efectos posteriores duraderos necesitan outbox o una entrega equivalente. Conserva los hechos financieros inmutables y modela explícitamente los ajustes posteriores.
 
-## Verify
-Use synthetic sandbox data. Test success, rejection, accepted request with lost response, local persistence failure, concurrent retry, duplicate/out-of-order event, invalid signature, expired key window, cancellation/reversal and outage recovery. Inspect one charge, correct entitlement and durable state. Never rotate a key merely to escape an unknown result.
+## Verificar
+Usa datos sintéticos en el entorno de pruebas del proveedor. Prueba éxito, rechazo, solicitud aceptada con respuesta perdida, fallo de persistencia local, reintento concurrente, evento duplicado/fuera de orden, firma inválida, ventana de clave caducada, cancelación/reversión y recuperación tras una interrupción. Comprueba que haya un solo cobro, derechos de acceso correctos y estado duradero. Nunca cambies una clave para eludir un resultado desconocido.
 
-Distinguish deterministic simulation from actual sandbox evidence; list unsupported/unexecuted scenarios. Use only test credentials and valid TLS, and remove owned resources.
+Distingue la simulación determinista de la evidencia real del entorno de pruebas del proveedor; enumera los escenarios no soportados/no ejecutados. Usa solo credenciales de prueba y TLS válido, y elimina los recursos propios.
 
-## Deliver
-Rule/contract changes, implementation, meaningful automated and real-flow evidence, reconciliation/runbook updates, cleanup and remaining gates.
+## Entregar
+Cambios de reglas/contratos, implementación, evidencia significativa automatizada y del flujo real, actualizaciones de reconciliación/manuales operativos, limpieza y requisitos pendientes.

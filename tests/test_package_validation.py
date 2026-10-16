@@ -164,8 +164,16 @@ class PackageValidationTests(unittest.TestCase):
             self.assertTrue(VALIDATOR.is_linklike(self.root / "junction"))
 
     def test_linklike_directory_is_rejected_before_traversal(self):
-        linked = self.root / "linklike-fixture"
+        # The validator resolves the supplied root, including Windows 8.3
+        # aliases. The mock must identify the same canonical fixture target.
+        canonical_root = self.root.resolve()
+        linked = canonical_root / "linklike-fixture"
         linked.mkdir()
+        alias_hop = canonical_root / "normalization-hop"
+        alias_hop.mkdir()
+        aliased_root = alias_hop / ".."
+        self.assertNotEqual(aliased_root, canonical_root)
+        self.assertEqual(canonical_root, aliased_root.resolve())
         original_iterdir = Path.iterdir
         original_detector = VALIDATOR.is_linklike
 
@@ -174,9 +182,14 @@ class PackageValidationTests(unittest.TestCase):
                 raise AssertionError("must never enumerate the linked target")
             return original_iterdir(path)
 
-        with patch.object(VALIDATOR, "is_linklike", side_effect=lambda p: p == linked or original_detector(p)):
-            with patch.object(Path, "iterdir", guarded_iterdir):
-                self.assertTrue(any("reparse point" in e for e in self.validate()))
+        for supplied_root in (self.root, aliased_root):
+            with self.subTest(root=supplied_root):
+                with patch.object(self, "root", supplied_root):
+                    with patch.object(VALIDATOR, "is_linklike", side_effect=lambda p: p == linked or original_detector(p)) as detector:
+                        with patch.object(Path, "iterdir", guarded_iterdir):
+                            errors = self.validate()
+                        detector.assert_any_call(linked)
+                        self.assertTrue(any("reparse point" in e for e in errors))
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

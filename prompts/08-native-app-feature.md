@@ -1,17 +1,17 @@
-# 08 · Add a client feature with a backend contract
+# 08 · Añadir una funcionalidad de cliente con contrato de backend
 
-## Feature
-{{Client platforms, workflow, roles, offline needs and acceptance criteria}}
+## Funcionalidad
+{{Plataformas de cliente, flujo, roles, necesidades sin conexión y criterios de aceptación}}
 
-## Procedure
-1. Read rules, project/client profile and [API/client guidance](../core/api-and-native-clients.md). Use the chosen client framework and its existing conventions.
-2. Define or extend the actual API contract: authentication, permission, data, errors, compatibility, pagination and idempotency where relevant. Proposed fields/endpoints are documented before use.
-3. Implement backend authorization and live tenant membership. For Bearer-only routes, reject cookie fallback and do not change browser sessions; do not require browser CSRF. Cookie-authenticated routes keep their declared CSRF protection.
-4. Implement client state, navigation, transport and secure credential storage through the established architecture. The backend remains authoritative for commercial and security decisions.
-5. If offline applies, scope caches/queues by environment+user+tenant, mark pending writes, define conflicts, cursor expiry, deletion and resync. Clear/re-scope data on logout/revocation/context change.
-6. Render text as text; rich content or embedded browsing requires contextual sanitization and URL policy.
-7. Verify agreed layouts, accessibility, languages and all reachable states. Apply the client's actual version/release policy.
-8. Run profile-specific checks and exercise the real client against the isolated lab: login, stronger-auth, tenant switch, denial, revocation, retry and offline recovery where applicable.
+## Procedimiento
+1. Lee las reglas, el perfil del proyecto/cliente y la [guía de API y clientes](../core/api-and-native-clients.md). Usa el framework de cliente elegido y sus convenciones existentes.
+2. Define o amplía el contrato real de API: autenticación, permisos, datos, errores, compatibilidad, paginación e idempotencia cuando corresponda. Documenta los campos/endpoints propuestos antes de utilizarlos.
+3. Implementa autorización en el backend y pertenencia vigente al tenant. Para rutas exclusivamente Bearer, rechaza el recurso alternativo a cookies y no modifiques sesiones del navegador; no exijas CSRF del navegador. Las rutas autenticadas mediante cookies mantienen su protección CSRF declarada.
+4. Implementa estado, navegación, transporte y almacenamiento seguro de credenciales del cliente mediante la arquitectura establecida. El backend conserva la autoridad sobre las decisiones comerciales y de seguridad.
+5. Si se requiere funcionamiento sin conexión, delimita cachés/colas por entorno+usuario+tenant, marca las escrituras pendientes y define conflictos, caducidad de cursores, eliminación y resincronización. Borra o cambia el ámbito de los datos al cerrar sesión, revocar acceso o cambiar de contexto.
+6. Renderiza el texto como texto; el contenido enriquecido o la navegación integrada requieren saneamiento contextual y una política de URL.
+7. Verifica los diseños acordados, la accesibilidad, los idiomas y todos los estados alcanzables. Aplica la política real de versiones/publicación del cliente.
+8. Ejecuta las comprobaciones específicas del perfil y ejercita el cliente real contra el laboratorio aislado: inicio de sesión, autenticación reforzada, cambio de tenant, denegación, revocación, reintento y recuperación de la conexión, cuando corresponda.
 
-## Deliver
-Contract and implementation, checks, device/client/version matrix, persisted-state evidence, cleanup and unexecuted cases. Do not impose a native app on a product whose requested client is web-only.
+## Entregar
+Contrato e implementación, comprobaciones, matriz de dispositivos/clientes/versiones, evidencia del estado persistido, limpieza y casos no ejecutados. No impongas una aplicación nativa a un producto cuyo cliente solicitado sea exclusivamente web.

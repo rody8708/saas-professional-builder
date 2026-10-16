@@ -1,19 +1,19 @@
-# 15 · Refactor a declared boundary without changing behavior
+# 15 · Refactorizar un límite declarado sin cambiar el comportamiento
 
-## Target
-{{Boundary violation or debt item, current exception, responsible module}}
+## Objetivo
+{{Infracción de un límite o elemento de deuda, excepción actual y módulo responsable}}
 
-## Procedure
-1. Read project rules/profile and [architecture guidance](../core/architecture.md). Confirm the rule protects a real boundary rather than a stylistic preference.
-2. Characterize behavior and relevant failures before moving code; add meaningful missing coverage.
-3. Refactor using the framework's native composition and conventions. Add interfaces/adapters only where they improve isolation or replaceability.
-4. Preserve transaction, authorization, tenancy and side-effect semantics. A new abstraction must not hide changes to retry or durability.
-5. Remove the resolved exception in the same change. Run the guard and compare its scope/thresholds with the base so coverage was not silently reduced.
-6. Run affected tests and required checks; replay the significant real entry point when behavior could be disturbed.
-7. Update architectural documentation and debt status; clean owned resources.
+## Procedimiento
+1. Lee las reglas y el perfil del proyecto y la [guía de arquitectura](../core/architecture.md). Confirma que la regla proteja un límite real y no una preferencia de estilo.
+2. Caracteriza el comportamiento y los fallos pertinentes antes de mover código; añade la cobertura significativa que falte.
+3. Refactoriza mediante la composición y las convenciones nativas del framework. Añade interfaces/adaptadores solo donde mejoren el aislamiento o la capacidad de sustitución.
+4. Conserva la semántica de transacciones, autorización, tenants y efectos secundarios. Una nueva abstracción no debe ocultar cambios en reintentos o durabilidad.
+5. Elimina la excepción resuelta en el mismo cambio. Ejecuta el control y compara su alcance/umbrales con la base para comprobar que no se haya reducido silenciosamente la cobertura.
+6. Ejecuta las pruebas afectadas y las comprobaciones obligatorias; repite el punto de entrada real relevante cuando pueda verse alterado el comportamiento.
+7. Actualiza la documentación de arquitectura y el estado de la deuda; limpia los recursos propios.
 
-## Constraints
-Do not mix unrelated behavior changes. If a newly discovered bug requires different behavior, give it an explicit decision, regression and coherent change. Do not grow exclusions to make the refactor green; an intentional rule change requires a documented architecture decision.
+## Restricciones
+No mezcles cambios de comportamiento ajenos al alcance. Si un defecto recién descubierto requiere un comportamiento diferente, asígnale una decisión explícita, una regresión y un cambio coherente. No amplíes las exclusiones para que la refactorización supere las pruebas; un cambio intencional de regla requiere una decisión de arquitectura documentada.
 
-## Deliver
-Boundary/debt change, before/after behavior evidence, checks, exceptions removed and remaining risk. Do not replace the agreed framework with custom infrastructure as a refactor.
+## Entregar
+Cambio de límite/deuda, evidencia de comportamiento antes/después, comprobaciones, excepciones eliminadas y riesgo pendiente. No sustituyas el framework acordado por infraestructura propia como parte de una refactorización.

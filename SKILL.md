@@ -65,3 +65,5 @@ El bootstrap incluye solo las capacidades solicitadas. Los pagos, aplicaciones n
 `controls-validated` indica que los controles incluidos en un perfil tienen pruebas ejecutadas y evidencia acotada. No acredita el framework completo, una aplicación futura, cumplimiento normativo ni producción. `guidance-only` indica que el perfil solo aporta orientación sin esa evidencia. Los controles faltantes permanecen pendientes; no se rebajan requisitos de seguridad para conseguir un resultado verde.
 
 El [registro de esta entrega](docs/validation.md) separa pruebas del paquete, pruebas de cada control y verificaciones de producto pendientes. La [extensión de perfiles](profiles/README.md) exige el mismo contrato de calidad para cualquier tecnología nueva.
+
+Para preparar o instalar este paquete y reproducir sus controles, consulta [docs/setup.md](docs/setup.md). La documentación utiliza español; conserva los idiomas y convenciones elegidos por cada producto destino.

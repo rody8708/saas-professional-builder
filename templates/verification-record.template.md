@@ -1,62 +1,62 @@
-# {{Flow/change}} verification
+# Verificación de {{flujo/cambio}}
 
-Date: {{date/time and timezone}}
+Fecha: {{fecha/hora y zona horaria}}
 
-Owner: {{responsible verifier}}
+Responsable: {{persona responsable de la verificación}}
 
-Scope: {{behavior and entry points}}
-Status: {{verified within stated scope / pending / failed}}
+Alcance: {{comportamiento y puntos de entrada}}
+Estado: {{verificado dentro del alcance indicado / pendiente / fallido}}
 
-## Revision and environment
+## Revisión y entorno
 
-{{Source revision/artifact hash, local changes, runtime identity, relevant versions, production-equivalent properties and known differences. No credentials or private endpoints.}}
+{{Revisión del código/hash del artefacto, cambios locales, identidad del entorno de ejecución, versiones pertinentes, propiedades equivalentes a producción y diferencias conocidas. Sin credenciales ni endpoints privados.}}
 
-## Synthetic setup and ownership
+## Preparación sintética y propiedad
 
-{{Clearly synthetic identities/data, isolated providers, run identifier and ownership method.}}
+{{Identidades/datos claramente sintéticos, proveedores aislados, identificador de ejecución y método para acreditar la propiedad.}}
 
-| Resource type | Non-sensitive identifier/reference | Owner/run | Cleanup method |
+| Tipo de recurso | Identificador/referencia no sensible | Propietario/ejecución | Método de limpieza |
 |---|---|---|---|
-| {{process/schema/file/account/etc.}} | {{reference}} | {{run}} | {{method}} |
+| {{proceso/esquema/archivo/cuenta/etc.}} | {{referencia}} | {{ejecución}} | {{método}} |
 
-## Reproduction or baseline
+## Reproducción o estado de referencia
 
-{{Expected vs observed before the change; exact safe steps; regression failing for the original defect. If unavailable, explain rather than invent.}}
+{{Esperado frente a observado antes del cambio; pasos exactos seguros; regresión que falla por el defecto original. Si no está disponible, explica el motivo en lugar de inventarlo.}}
 
-## Replay after change
+## Repetición tras el cambio
 
-| Case/entry point | Steps and input | Expected | Observed and durable state | Status |
+| Caso/punto de entrada | Pasos y entrada | Esperado | Observado y estado duradero | Estado |
 |---|---|---|---|---|
-| {{case}} | {{synthetic steps}} | {{expected}} | {{result/effects}} | {{status}} |
+| {{caso}} | {{pasos sintéticos}} | {{esperado}} | {{resultado/efectos}} | {{estado}} |
 
-## Failure, isolation and retry
+## Fallos, aislamiento y reintentos
 
-{{Applicable cases: denied/revoked permission, another tenant, input error, duplicate, concurrency, dependency failure, accepted effect with lost response, retry, recovery and no duplicate effects.}}
+{{Casos aplicables: permiso denegado/revocado, otro tenant, error de entrada, duplicado, concurrencia, fallo de dependencia, efecto aceptado con respuesta perdida, reintento, recuperación y ausencia de efectos duplicados.}}
 
-## Automated checks
+## Comprobaciones automatizadas
 
-| Actual command/check | Environment | Result/counts | Scope/limits |
+| Comando/comprobación real | Entorno | Resultado/recuentos | Alcance/límites |
 |---|---|---|---|
-| {{command}} | {{environment}} | {{actual}} | {{limits}} |
+| {{comando}} | {{entorno}} | {{resultado real}} | {{límites}} |
 
-## External execution versus simulation
+## Ejecución externa frente a simulación
 
-{{Separate real sandbox exercises from deterministic simulations. List limitations of provider/device/environment access.}}
+{{Separa los ejercicios reales en entornos de prueba de las simulaciones deterministas. Enumera las limitaciones de acceso a proveedores/dispositivos/entornos.}}
 
-## Cleanup verification
+## Verificación de limpieza
 
-| Owned resource | Removal outcome | Independent absence check | Remaining action |
+| Recurso propio | Resultado de eliminación | Comprobación independiente de ausencia | Acción pendiente |
 |---|---|---|---|
-| {{resource}} | {{outcome}} | {{check}} | {{none or action}} |
+| {{recurso}} | {{resultado}} | {{comprobación}} | {{ninguna o acción}} |
 
-{{Do not delete resources with unproven ownership. Cleanup failures remain visible.}}
+{{No elimines recursos cuya propiedad no esté demostrada. Los fallos de limpieza permanecen visibles.}}
 
-## Remaining gaps
+## Brechas pendientes
 
-| Unexecuted/blocked/failed case | Impact | Owner | Next evidence required |
+| Caso no ejecutado/bloqueado/fallido | Impacto | Responsable | Siguiente evidencia necesaria |
 |---|---|---|---|
-| {{gap or none}} | {{impact}} | {{owner}} | {{closure}} |
+| {{brecha o ninguna}} | {{impacto}} | {{responsable}} | {{cierre}} |
 
-## Evidence handling
+## Tratamiento de la evidencia
 
-{{Sanitized summaries/references only. No raw logs, tokens, cookies, environment files, database dumps or private captures. Conclusions apply only to the revision, environment and cases above.}}
+{{Solo resúmenes/referencias sin datos sensibles. Sin registros sin depurar, tokens, cookies, archivos de entorno, volcados de bases de datos ni capturas privadas. Las conclusiones se aplican únicamente a la revisión, el entorno y los casos anteriores.}}

@@ -1,70 +1,70 @@
-# Project rules
+# Reglas del proyecto
 
-Status: {{draft/accepted}}
+Estado: {{borrador/aceptado}}
 
-Owner: {{owner}}
+Responsable: {{responsable}}
 
-Profile: {{project profile path and revision}}
-Architecture: {{architecture/decision references}}
+Perfil: {{ruta y revisión del perfil del proyecto}}
+Arquitectura: {{referencias de arquitectura/decisiones}}
 
-Adapt this template to the product. MUST denotes a required invariant; SHOULD permits a documented exception. An exception records owner, reason, scope, mitigation and review condition. Requirements apply to capabilities actually present.
+Adapta esta plantilla al producto. DEBE equivale a MUST y expresa una invariante obligatoria; DEBERÍA equivale a SHOULD y permite una excepción documentada. Toda excepción registra responsable, motivo, alcance, mitigación y condición de revisión. Los requisitos se aplican a las capacidades realmente presentes.
 
-## Product and architecture
+## Producto y arquitectura
 
-- MUST preserve declared module/data ownership and compatibility contracts.
-- MUST keep authority and business invariants enforceable independently of UI behavior.
-- SHOULD use the selected framework's maintained mechanisms and the simplest deployment shape that meets requirements.
-- SHOULD add abstractions for actual boundaries/variation, not one interface or service per class by default.
-- MUST document effects that cross transaction boundaries and provide recovery when loss or duplication violates the contract.
-- Architecture checks: {{actual checks, scope and known limitations}}.
+- Se DEBE conservar la propiedad declarada de módulos/datos y los contratos de compatibilidad.
+- Se DEBE poder hacer cumplir la autoridad y las invariantes de negocio con independencia del comportamiento de la UI.
+- Se DEBERÍAN usar los mecanismos mantenidos del framework seleccionado y la estructura de despliegue más sencilla que cumpla los requisitos.
+- Se DEBERÍAN añadir abstracciones para límites/variaciones reales, no una interfaz o servicio por clase de forma predeterminada.
+- Se DEBEN documentar los efectos que atraviesan límites transaccionales y proporcionar recuperación cuando la pérdida o duplicación incumpla el contrato.
+- Controles de arquitectura: {{controles reales, alcance y limitaciones conocidas}}.
 
-## Identity and tenancy
+## Identidad y tenants
 
-- MUST authenticate through maintained mechanisms and validate credential/user state.
-- MUST revalidate permissions, active membership and tenant status at protected operations, including alternative entry points.
-- MUST enforce the chosen tenant model in reads, writes, relationships, jobs, caches, files, search and exports.
-- MUST test cross-tenant denial and absence of indirect leakage.
-- Authentication modes and stronger-auth policy: {{references}}.
-- Tenant model and data owners: {{references}}.
+- Se DEBE autenticar mediante mecanismos mantenidos y validar el estado de credenciales/usuarios.
+- Se DEBEN revalidar permisos, pertenencia activa y estado del tenant en las operaciones protegidas, incluidos los puntos de entrada alternativos.
+- Se DEBE aplicar el modelo de tenants elegido en lecturas, escrituras, relaciones, trabajos, cachés, archivos, búsquedas y exportaciones.
+- Se DEBEN probar la denegación entre tenants y la ausencia de filtraciones indirectas.
+- Modos de autenticación y política de autenticación reforzada: {{referencias}}.
+- Modelo de tenants y propietarios de datos: {{referencias}}.
 
-## Security and privacy
+## Seguridad y privacidad
 
-- MUST protect mutations using ambient credentials against CSRF; Bearer-only routes reject cookie fallback; webhooks verify raw-body signatures and replay controls.
-- MUST encode/sanitize output by context, validate URL schemes and use safe query APIs with parameterized values.
-- MUST bound external calls, uploads and public-endpoint cost; enforce the agreed egress/TLS policy.
-- MUST keep public errors safe and logs minimized/redacted with controlled access.
-- MUST keep secrets and operational/customer data out of source control and fixtures.
-- MUST define export, suppression, retention, shared ownership and restore behavior before implementing destructive data policy.
-- Data policy: {{reference}}. No universal retention, grace or subscription-blocking rule is implied.
+- Se DEBEN proteger contra CSRF las modificaciones autenticadas mediante credenciales adjuntadas automáticamente; las rutas exclusivamente Bearer rechazan el recurso alternativo a cookies; los webhooks verifican las firmas del cuerpo original y los controles contra repetición.
+- Se DEBE codificar/sanear la salida según el contexto, validar esquemas de URL y usar API de consulta seguras con valores parametrizados.
+- Se DEBEN limitar las llamadas externas, las cargas de archivos y el coste de endpoints públicos; aplicar la política acordada de tráfico saliente/TLS.
+- Se DEBEN mantener seguros los errores públicos y minimizar/depurar los registros con acceso controlado.
+- Se DEBEN mantener secretos y datos operativos/de clientes fuera del control de versiones y de los datos de prueba.
+- Se DEBEN definir exportación, supresión, retención, propiedad compartida y comportamiento de restauración antes de implementar políticas destructivas de datos.
+- Política de datos: {{referencia}}. No se implica ninguna regla universal de retención, plazo de gracia ni bloqueo por suscripción.
 
-## Consistency and commercial operations
+## Consistencia y operaciones comerciales
 
-- MUST define transaction and concurrency boundaries for invariant-changing operations.
-- MUST preserve a stable idempotency key/payload for retries of the same external operation.
-- MUST reconcile unknown outcomes before starting another effect that could duplicate a charge or mutation.
-- MUST use outbox or an equivalent durable mechanism when lost delivery violates the contract.
-- Billing/entitlement policy, if applicable: {{reference or not applicable}}.
+- Se DEBEN definir límites transaccionales y de concurrencia para las operaciones que cambien invariantes.
+- Se DEBEN conservar una clave de idempotencia y un contenido de solicitud estables en los reintentos de una misma operación externa.
+- Se DEBEN reconciliar los resultados desconocidos antes de iniciar otro efecto que pueda duplicar un cobro o una modificación.
+- Se DEBE usar outbox o un mecanismo duradero equivalente cuando la pérdida de una entrega incumpla el contrato.
+- Política de facturación/derechos de acceso, si aplica: {{referencia o no aplicable}}.
 
-## Verification and cleanup
+## Verificación y limpieza
 
-- MUST use synthetic identities and isolated infrastructure; tests cannot read operational environment files/databases.
-- MUST register owned resources, teardown on failure/success and verify absence.
-- MUST test database semantics on the supported production engine and any other promised engines.
-- MUST demonstrate bug regressions before/after and replay affected significant flows through their real entry points.
-- MUST record actual results and explicit gaps; health, coverage and review alone do not prove functional acceptance.
-- Test commands, matrix and thresholds: {{real project profile references}}.
+- Se DEBEN usar identidades sintéticas e infraestructura aislada; las pruebas no pueden leer archivos de entorno/bases de datos operativos.
+- Se DEBEN registrar los recursos propios, desmontarlos tanto ante fallo como ante éxito y verificar su ausencia.
+- Se DEBE probar la semántica de la base de datos en el motor de producción soportado y en cualquier otro motor prometido.
+- Se DEBEN demostrar las regresiones de defectos antes/después y repetir los flujos significativos afectados mediante sus puntos de entrada reales.
+- Se DEBEN registrar resultados reales y brechas explícitas; salud, cobertura y revisión por sí solas no demuestran aceptación funcional.
+- Comandos, matriz y umbrales de pruebas: {{referencias reales del perfil del proyecto}}.
 
-## Experience and documentation
+## Experiencia y documentación
 
-- MUST meet agreed accessibility, locales, formats, supported devices/themes and workflow states.
-- MUST update affected contracts, user/developer guidance and operation with behavior changes.
-- SHOULD keep user copy clear and dynamic limits/plan names tied to their source.
-- Experience/release standards: {{references}}.
+- Se DEBEN cumplir la accesibilidad, los idiomas, formatos, dispositivos/temas soportados y estados del flujo acordados.
+- Se DEBEN actualizar los contratos, las guías para usuarios/desarrolladores y la documentación de operación afectados por cambios de comportamiento.
+- Se DEBERÍAN mantener claros los textos de usuario y vinculados a su fuente los límites/nombres de planes dinámicos.
+- Estándares de experiencia/publicación: {{referencias}}.
 
-## Delivery and operations
+## Entrega y operación
 
-- MUST inspect the final diff, scan for private data and verify cleanup before publication.
-- MUST use versioned migrations and document compatibility, rollout and rollback/forward recovery.
-- MUST define operational owners, alert routing, SLO and recovery objectives; only measured evidence demonstrates them.
-- MUST follow the user's authorization and the repository's actual branch/CI/publication policy.
-- Delivery, CI, restore and incident references: {{paths}}.
+- Se DEBE inspeccionar el diff final, buscar datos privados y verificar la limpieza antes de publicar.
+- Se DEBEN usar migraciones versionadas y documentar compatibilidad, despliegue y reversión/recuperación hacia delante.
+- Se DEBEN definir responsables operativos, destino de alertas, SLO y objetivos de recuperación; solo la evidencia medida demuestra su cumplimiento.
+- Se DEBEN seguir la autorización del usuario y la política real de ramas/CI/publicación del repositorio.
+- Referencias de entrega, CI, restauración e incidentes: {{rutas}}.

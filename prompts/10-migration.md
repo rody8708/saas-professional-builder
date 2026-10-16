@@ -1,17 +1,17 @@
-# 10 · Migrate data with compatibility and recovery
+# 10 · Migrar datos con compatibilidad y recuperación
 
-## Change
-{{Schema/data change, owning module, supported engines and deployment shape}}
+## Cambio
+{{Cambio de esquema/datos, módulo propietario, motores soportados y estructura de despliegue}}
 
-## Procedure
-1. Read rules/profile and [delivery guidance](../core/delivery-workflow.md). Use the framework's versioned migration mechanism.
-2. Describe current/target schema, data ownership, tenant-safe relationships, indexes, invariants and impact on old callers.
-3. Plan expand-contract where versions coexist: compatible expansion, compatible code, idempotent batched backfill, validation, retirement and separately controlled contraction.
-4. Define transaction/DDL limits, privileges, locks, duration, interruption and resumability for every supported engine.
-5. Provide a safe rollback where possible; otherwise label the step irreversible and define recovery/forward repair. Do not pretend data loss is reversed by restoring a column name.
-6. Test empty and populated synthetic databases on all supported engines, including production's engine. Exercise interruption/retry, concurrency and constraints.
-7. Run rollback/up cycles for reversible changes; rehearse the actual recovery plan for irreversible changes.
-8. Document deployment order, observability, abort criteria and owner. Destructive production execution requires the user's applicable authorization and is not implied by writing a migration.
+## Procedimiento
+1. Lee las reglas y el perfil y la [guía de entrega](../core/delivery-workflow.md). Usa el mecanismo de migraciones versionadas del framework.
+2. Describe los esquemas actual/destino, la propiedad de los datos, las relaciones seguras entre tenants, los índices, las invariantes y el impacto en los consumidores antiguos.
+3. Planifica expansión y contracción cuando coexistan versiones: expansión compatible, código compatible, relleno de datos idempotente por lotes, validación, retirada y contracción controlada por separado.
+4. Define límites de transacciones/DDL, privilegios, bloqueos, duración, interrupción y capacidad de reanudación para cada motor soportado.
+5. Proporciona una reversión segura cuando sea posible; de lo contrario, identifica el paso como irreversible y define recuperación/corrección hacia delante. No finjas revertir una pérdida de datos por restaurar el nombre de una columna.
+6. Prueba bases de datos sintéticas vacías y pobladas sobre todos los motores soportados, incluido el de producción. Ejercita interrupción/reintento, concurrencia y restricciones.
+7. Ejecuta ciclos de reversión/aplicación para cambios reversibles; ensaya el plan real de recuperación para cambios irreversibles.
+8. Documenta orden de despliegue, observabilidad, criterios de interrupción y responsable. La ejecución destructiva en producción requiere la autorización aplicable del usuario y no queda implícita al escribir una migración.
 
-## Deliver
-Migration and backfill, compatibility matrix, measured test results, recovery evidence and remaining risks. Tests use isolated data and verified cleanup, never copies of customer databases.
+## Entregar
+Migración y relleno de datos, matriz de compatibilidad, resultados medidos de pruebas, evidencia de recuperación y riesgos pendientes. Las pruebas usan datos aislados y limpieza verificada, nunca copias de bases de datos de clientes.

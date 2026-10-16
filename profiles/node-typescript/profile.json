@@ -1,28 +1,44 @@
 {
   "id": "node-typescript",
-  "name": "Node.js / TypeScript architecture controls",
-  "languages": ["TypeScript", "JavaScript"],
+  "name": "Controles de arquitectura Node.js / TypeScript",
+  "languages": [
+    "TypeScript",
+    "JavaScript"
+  ],
   "status": "controls-validated",
   "guide": "PROFILE.md",
-  "templates": ["templates/architecture-guard.mjs", "templates/architecture-policy.json"],
-  "tests": ["tests/architecture-guard.test.mjs"],
-  "implemented_controls": [
-    "Required domain/application roots and nonempty source scans",
-    "Configured lexical import/reexport boundaries, including type-only imports",
-    "Relative and explicitly configured alias path boundaries",
-    "Known literal loaders and rejection of unresolved known dynamic loaders",
-    "Comment/string handling and temporary-fixture cleanup regressions"
+  "templates": [
+    "templates/architecture-guard.mjs",
+    "templates/architecture-policy.json"
   ],
-  "project_gates": ["architecture", "tenant-isolation", "authorization", "data-integrity", "retry-safety", "real-entrypoint", "operations"],
+  "tests": [
+    "tests/architecture-guard.test.mjs"
+  ],
+  "implemented_controls": [
+    "Raíces obligatorias de dominio/aplicación e inspecciones de código fuente no vacías",
+    "Límites léxicos configurados de importaciones/reexportaciones, incluidas importaciones solo de tipos",
+    "Límites de rutas relativas y de alias configurados explícitamente",
+    "Cargadores literales conocidos y rechazo de cargadores dinámicos conocidos no resueltos",
+    "Regresiones de tratamiento de comentarios/cadenas y limpieza de recursos sintéticos temporales"
+  ],
+  "project_gates": [
+    "architecture",
+    "tenant-isolation",
+    "authorization",
+    "data-integrity",
+    "retry-safety",
+    "real-entrypoint",
+    "operations"
+  ],
   "validation": {
-    "environment": "Windows; Node.js v24.16.0; built-in node:test and standard libraries only",
+    "environment": "Windows; Node.js v24.16.0; solo node:test integrado y bibliotecas estándar",
     "command": "node --test profiles/node-typescript/tests/architecture-guard.test.mjs",
-    "result": "28 tests passed; 0 failed; 0 skipped. Positive and negative CLI outcomes verified with synthetic temporary fixtures and cleanup.",
+    "result": "28 pruebas aprobadas; 0 fallidas; 0 omitidas. Resultados positivos y negativos de la CLI verificados con recursos sintéticos temporales y limpieza.",
     "limitations": [
-      "Profile controls validated; no complete SaaS application or framework integration supplied.",
-      "Lexical checker, not a TypeScript parser or resolver; tsc and resolver-aware dependency checks remain mandatory project gates.",
-      "Regex context, loader shadowing, unconfigured aliases, transitive dependencies, generated code and arbitrary dynamic execution require separate analysis.",
-      "No database, auth, payment, tenancy, product coverage or deployed entry-point validation was performed."
+      "Controles del perfil validados; no se incluye una aplicación SaaS completa ni integración con un framework.",
+      "Analizador léxico, no parser ni resolvedor de TypeScript; tsc y las comprobaciones de dependencias con resolución de módulos siguen siendo requisitos obligatorios del proyecto.",
+      "El contexto de expresiones regulares, los nombres que ocultan cargadores, los alias no configurados, las dependencias transitivas, el código generado y la ejecución dinámica arbitraria requieren análisis separado.",
+      "No se validaron base de datos, autenticación, pagos, aislamiento entre tenants, cobertura del producto ni entradas desplegadas."
     ]
   }
 }

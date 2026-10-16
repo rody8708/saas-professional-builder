@@ -1,63 +1,63 @@
-# Node.js / TypeScript profile
+# Perfil Node.js / TypeScript
 
-Status: **profile controls validated**. This profile supplies a bounded dependency checker and its regression tests. It does not supply a SaaS application, authentication, migrations, an ORM, deployment, or a certified TypeScript architecture.
+Estado: **controles del perfil validados**. Este perfil aporta un detector de dependencias con alcance limitado y sus pruebas de regresión. No aporta una aplicación SaaS, autenticación, migraciones, un ORM, despliegue ni una arquitectura TypeScript certificada.
 
-## Structure and framework adaptation
+## Estructura y adaptación al framework
 
-Use `src/domain` for entities, value objects and ports, and `src/application` for use cases and orchestration through those ports. Keep SQL clients, payment SDKs, queues and persistence adapters in `src/infrastructure`. Put HTTP handlers, framework request types and serializers in `src/presentation`. Wire concrete dependencies in a composition root outside the inner layers.
+Usa `src/domain` para entidades, objetos de valor y puertos, y `src/application` para casos de uso y coordinación a través de esos puertos. Mantén los clientes SQL, SDK de pagos, colas y adaptadores de persistencia en `src/infrastructure`. Coloca los manejadores HTTP, tipos de petición del framework y serializadores en `src/presentation`. Conecta las dependencias concretas en un punto de composición fuera de las capas internas.
 
-For Express or Fastify, handlers adapt HTTP to application DTOs. For NestJS, keep framework decorators and injectable adapter wiring outside the pure domain/application packages. For Next.js, route handlers and server actions are entry-point adapters; a server-only file is not automatically authorized or tenant-isolated. UI JSX/TSX belongs outside the two guarded roots. Choose and lock the framework and package versions in the actual project; none is installed by this profile.
+En Express o Fastify, los manejadores adaptan HTTP a los DTO de aplicación. En NestJS, mantén los decoradores del framework y la configuración de inyección de adaptadores fuera de los paquetes puros de dominio y aplicación. En Next.js, los manejadores de rutas y las acciones de servidor son adaptadores de entrada; un archivo exclusivo del servidor no queda autorizado ni aislado por tenant automáticamente. El código de interfaz JSX/TSX pertenece fuera de las dos raíces inspeccionadas. Conserva el framework del proyecto y fija sus versiones y las de sus paquetes; este perfil no instala ninguno.
 
-## Executable controls supplied
+## Controles ejecutables incluidos
 
-- `templates/architecture-guard.mjs`: standard-library CLI that reads source text without executing or importing the application.
-- `templates/architecture-policy.json`: explicit roots, import aliases, forbidden internal paths, and forbidden persistence/transport packages for both inner layers. Adapt aliases to the project's real module resolution and review policy changes.
-- `tests/architecture-guard.test.mjs`: subprocess tests against temporary synthetic projects. No network, database, application bootstrap or `.env` access. Teardown removes each owned fixture in `finally`.
+- `templates/architecture-guard.mjs`: herramienta de línea de comandos basada en bibliotecas estándar; lee el código fuente sin ejecutar ni importar la aplicación.
+- `templates/architecture-policy.json`: raíces explícitas, alias de importación, rutas internas prohibidas y paquetes de persistencia/transporte prohibidos para ambas capas internas. Adapta los alias a la resolución real de módulos del proyecto y revisa los cambios de política.
+- `tests/architecture-guard.test.mjs`: pruebas mediante subprocesos sobre proyectos sintéticos temporales. No acceden a red, bases de datos, arranque de la aplicación ni `.env`. La limpieza elimina cada recurso de prueba propio en `finally`.
 
-The checker requires both roots to exist and contain supported source files. It rejects source symlinks and malformed policy paths. It inspects static ES imports, type-only imports/reexports, side-effect imports, literal `require`, `module.require`, `require.resolve`, and dynamic `import` calls. Recognized loaders with nonliteral targets fail closed. Relative paths and explicitly configured aliases are checked against forbidden paths. Alias keys are prefixes without trailing `/` or `*` (for example `@domain`, not `@domain/*`). Absolute path and URL imports fail closed; configured `node:` builtins are checked as packages. Package prefixes are matched at `/` boundaries. Comments, quoted strings, template text and ordinary regex literals are ignored; code inside template interpolations is visited. JSX in inner layers fails with an explicit unsupported-syntax error.
+El detector exige que ambas raíces existan y contengan archivos fuente compatibles. Rechaza enlaces simbólicos de archivos fuente y rutas de política mal formadas. Inspecciona importaciones ES estáticas, importaciones y reexportaciones solo de tipos, importaciones con efectos secundarios, llamadas literales a `require`, `module.require`, `require.resolve` e importaciones dinámicas mediante `import`. Los cargadores reconocidos con destinos no literales se rechazan ante la imposibilidad de resolverlos. Las rutas relativas y los alias configurados explícitamente se comparan con las rutas prohibidas. Las claves de alias son prefijos sin `/` ni `*` al final (por ejemplo, `@domain`, no `@domain/*`). Las importaciones de rutas absolutas y URL se rechazan; los módulos integrados `node:` configurados se comprueban como paquetes. Los prefijos de paquete se comparan respetando los límites `/`. Se omiten comentarios, cadenas entre comillas, texto de plantillas y expresiones regulares literales ordinarias; se inspecciona el código dentro de interpolaciones de plantillas. JSX en las capas internas produce un error explícito de sintaxis no compatible.
 
-The lexer supports `.ts`, `.mts`, `.cts`, `.js`, `.mjs` and `.cjs`; it excludes `node_modules`, `vendor`, `.git`, `dist` and `build`. Exit codes are `0` for the configured lexical checks passing, `1` for a dependency violation, and `2` when inspection cannot complete. A zero result is not a type check or runtime acceptance result.
+El analizador léxico admite `.ts`, `.mts`, `.cts`, `.js`, `.mjs` y `.cjs`; excluye `node_modules`, `vendor`, `.git`, `dist` y `build`. Los códigos de salida son `0` si pasan los controles léxicos configurados, `1` ante una infracción de dependencias y `2` si la inspección no puede completarse. Un resultado cero no equivale a una comprobación de tipos ni a aceptación funcional en ejecución.
 
-## Reproduce the profile validation
+## Reproducir la validación del perfil
 
-From this repository root, with Node.js 24 available:
+Desde la raíz de este repositorio, con Node.js 24 disponible:
 
 ```sh
 node --test profiles/node-typescript/tests/architecture-guard.test.mjs
 ```
 
-Validated on Windows with Node.js v24.16.0: **28 tests passed, zero failures/skips**. The tests exercise successful imports and real rejected CLI executions: missing/empty roots, forbidden cross-layer imports, aliases, package subpaths, type-only dependencies, dynamic loaders, escaped module names, comments/strings, template interpolation, malformed policies and unsupported JSX. All fixtures are removed after each test.
+Validado en Windows con Node.js v24.16.0: **28 pruebas aprobadas, cero fallos u omisiones**. Las pruebas verifican importaciones permitidas y rechazos reales de la herramienta: raíces ausentes/vacías, importaciones prohibidas entre capas, alias, subrutas de paquetes, dependencias solo de tipos, cargadores dinámicos, nombres de módulo con escapes, comentarios/cadenas, interpolaciones de plantillas, políticas mal formadas y JSX no compatible. Todos los recursos temporales se eliminan después de cada prueba.
 
-To adopt, copy the two template files into the project's `tools/` and root policy location, adapt the policy, and run:
+Para adoptarlo, copia los dos archivos de plantilla a `tools/` y a la ubicación de la política en la raíz del proyecto, adapta la política y ejecuta:
 
 ```sh
 node tools/architecture-guard.mjs --project-root . --config architecture-policy.json
 ```
 
-The checked roots must contain real source files. Do not weaken the policy or add empty placeholders merely to make a new project green.
+Las raíces inspeccionadas deben contener código fuente real. No debilites la política ni añadas archivos vacíos únicamente para que un proyecto nuevo pase los controles.
 
-## Required TypeScript and dependency gates
+## Comprobaciones obligatorias de TypeScript y dependencias
 
-This lexer is not a TypeScript parser or resolver. Regex-versus-division classification is contextual and incomplete; loader shadowing may produce false positives. It does not resolve aliases absent from the policy, package `exports`, transitive dependencies, arbitrary loader aliases, computed module access, `eval`, generated code, or architecture violations without imports. The configured forbidden-package list is finite; an unknown package is not automatically safe. These limitations must remain visible in project evidence.
+Este analizador léxico no es un parser ni un resolvedor de TypeScript. La distinción entre expresiones regulares y división depende del contexto y es incompleta; los nombres locales que ocultan cargadores pueden producir falsos positivos. No resuelve alias ausentes de la política, `exports` de paquetes, dependencias transitivas, alias arbitrarios de cargadores, acceso calculado a módulos, `eval`, código generado ni infracciones arquitectónicas sin importaciones. La lista configurada de paquetes prohibidos es finita; un paquete desconocido no es seguro automáticamente. Estos límites deben quedar visibles en la evidencia del proyecto.
 
-Every adopting TypeScript project must separately configure and pass the compiler, plus a resolver-aware dependency rule using the actual `tsconfig` aliases and package boundaries. For a locked, locally installed TypeScript dependency, the compiler command is:
+Cada proyecto TypeScript que lo adopte debe configurar y aprobar por separado el compilador y una regla de dependencias que resuelva los alias reales de `tsconfig` y los límites entre paquetes. Para una dependencia TypeScript de versión fijada e instalada localmente, el comando del compilador es:
 
 ```sh
 node node_modules/typescript/bin/tsc --noEmit --project tsconfig.json
 ```
 
-This profile does not supply or claim to have run that project's `tsconfig`, framework build, lint configuration or dependency-rule configuration. JavaScript-only adoption still needs a parser/resolver-aware lint or dependency check. Do not replace those gates with the supplied lexer.
+Este perfil no proporciona ni afirma haber ejecutado el `tsconfig`, la compilación del framework, la configuración de análisis de estilo ni las reglas de dependencias de ese proyecto. Un proyecto exclusivamente JavaScript también necesita análisis de estilo o dependencias que interprete la sintaxis y resuelva módulos. No sustituyas esas comprobaciones por el analizador léxico incluido.
 
-## Project acceptance gates
+## Requisitos de aceptación del proyecto
 
-| Gate | Evidence required from the adopting SaaS |
+| Requisito | Evidencia exigida al SaaS que adopte el perfil |
 | --- | --- |
-| Architecture | Configured guard, real compiler/build and resolver-aware dependency checks; port/adaptor boundaries reviewed. |
-| Tenant isolation | Cross-tenant negative tests through routes/jobs and persisted-state assertions against the chosen production database engine. |
-| Authorization | Denied actions, membership changes/revocation, object-level ownership and authenticated entry-point tests. |
-| Data integrity | Actual migrations, rollback or documented irreversibility, constraints, transaction boundaries and concurrent writes. |
-| Retry safety | Duplicate submissions/webhooks, idempotency keys, dependency failures and retry races without duplicate effects. |
-| Real entry point | HTTP/browser/worker replay in the required environment, checked outcome and stored state; provider sandbox for payments. |
-| Operations | Validated config, secret isolation, scheduler/queue recovery, alerts, backup restore drill and cleanup evidence. |
+| Arquitectura | Control configurado, compilación real y análisis de dependencias con resolución de módulos; revisión de límites entre puertos y adaptadores. |
+| Aislamiento entre tenants | Pruebas negativas entre tenants por rutas/tareas y comprobaciones del estado persistido en el motor de base de datos elegido para producción. |
+| Autorización | Acciones denegadas, cambios/revocación de membresía, propiedad de recursos y pruebas de entradas autenticadas. |
+| Integridad de datos | Migraciones reales, reversión o irreversibilidad documentada, restricciones, límites transaccionales y escrituras concurrentes. |
+| Reintentos seguros | Envíos/webhooks duplicados, claves de idempotencia, fallos de dependencias y carreras de reintentos sin duplicar efectos. |
+| Entrada real | Repetición del flujo HTTP/navegador/worker en el entorno exigido, resultado comprobado y estado almacenado; sandbox del proveedor para pagos. |
+| Operación | Configuración validada, aislamiento de secretos, recuperación de planificador/colas, alertas, restauración de copias y evidencia de limpieza. |
 
-Use unit tests for business behavior, database integration tests with isolated synthetic data, and real entry-point acceptance independently of the controls here. Payment/authentication flows require their own implemented providers, negative tests and sandbox evidence. Set project-specific coverage thresholds and obtain coverage from the project's actual test runner; this profile ships no coverage-report parser or threshold gate and makes no product coverage claim. No active CI workflow is included: integrate the commands only after dependencies, policy and the remaining gates exist, with sanitized evidence for every unexecuted check.
+Usa pruebas unitarias para el comportamiento de negocio, pruebas de integración con datos sintéticos aislados y aceptación mediante entradas reales, por separado de estos controles. Los flujos de pagos/autenticación necesitan sus propios proveedores implementados, pruebas negativas y evidencia en sandbox. Define umbrales de cobertura para el proyecto y obtén cobertura con su ejecutor real de pruebas; este perfil no incluye un lector de informes ni un control de umbral de cobertura y no afirma cobertura del producto. El CI del paquete prueba estos controles; cada proyecto debe integrar sus comandos cuando existan las dependencias, la política y los demás requisitos, y registrar evidencia saneada de las comprobaciones no ejecutadas. Añadir un workflow no demuestra que una ejecución remota haya pasado; consulta los resultados registrados en [docs/validation.md](../../docs/validation.md).

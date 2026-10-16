@@ -1,22 +1,22 @@
-# 07 · Audit security, tenancy and privacy
+# 07 · Auditar seguridad, aislamiento entre tenants y privacidad
 
-## Scope
-{{Areas, environments and authorized mode: read-only review or isolated active testing}}
-Read project rules/profile and [security guidance](../core/security-privacy.md). Default to read-only if active testing or fixes were not requested.
+## Alcance
+{{Áreas, entornos y modo autorizado: revisión de solo lectura o pruebas activas aisladas}}
+Lee las reglas y el perfil del proyecto y la [guía de seguridad](../core/security-privacy.md). Mantén el modo de solo lectura si no se han solicitado pruebas activas o correcciones.
 
-## Map and assess
-1. Identity: supported auth mechanisms, credential lifecycle, recovery, stronger-auth parity, session fixation, revocation and abuse limits.
-2. Authority: explicit permission at each operation; current membership/role/tenant state; composite actions; impersonation if present.
-3. Tenancy: reads, writes, aggregates, search, jobs, caches, files, exports and events; tenant-safe relationships.
-4. Route modes: CSRF with ambient credentials; Bearer-only without cookie fallback; signed raw-body webhooks with timestamp/replay controls.
-5. Input/output: contextual encoding/sanitization, URL schemes, parameterized queries, uploads, redirects and egress.
-6. Privacy: explicit data matrix, export/suppression/retention, shared ownership, backup restoration, minimized logs and external processing.
-7. Payments if present: durable intent, stable keys for unknown outcomes, confirmation, claims/fencing and reconciliation.
+## Identificar y evaluar
+1. Identidad: mecanismos de autenticación soportados, ciclo de vida de credenciales, recuperación, equivalencia de autenticación reforzada, fijación de sesión, revocación y límites frente al abuso.
+2. Autoridad: permiso explícito en cada operación; estado actual de pertenencia/rol/tenant; acciones compuestas; suplantación administrativa, si existe.
+3. Aislamiento entre tenants: lecturas, escrituras, agregados, búsqueda, trabajos, cachés, archivos, exportaciones y eventos; relaciones seguras entre tenants.
+4. Modos de ruta: CSRF con credenciales adjuntadas automáticamente; rutas exclusivamente Bearer sin recurrir a cookies; webhooks con firma sobre el cuerpo original y controles de marca temporal/repetición.
+5. Entrada/salida: codificación/saneamiento contextual, esquemas de URL, consultas parametrizadas, cargas de archivos, redirecciones y tráfico saliente.
+6. Privacidad: matriz explícita de datos, exportación/supresión/retención, propiedad compartida, restauración de copias de seguridad, registros mínimos y procesamiento externo.
+7. Pagos, si existen: intención duradera, claves estables ante resultados desconocidos, confirmación, reclamación exclusiva y exclusión de trabajadores obsoletos, y reconciliación.
 
-## Verify within authorization
-For active testing, use only isolated synthetic resources. Include missing/invalid CSRF, valid cookie with absent/invalid Bearer, conflicting cookie/token tenants, revoked memberships, direct file access and queued jobs. For webhooks test invalid/expired signatures and duplicates; for rendered content test each executable context. Inject failures only in owned resources.
+## Verificar dentro de la autorización
+Para las pruebas activas, usa únicamente recursos sintéticos aislados. Incluye CSRF ausente/inválido, cookie válida con Bearer ausente/inválido, tenants contradictorios entre cookie y token, pertenencias revocadas, acceso directo a archivos y trabajos en cola. Para webhooks, prueba firmas inválidas/caducadas y duplicados; para contenido renderizado, prueba cada contexto ejecutable. Inyecta fallos solo en recursos propios.
 
-Read-only analysis must not create accounts, send messages, mutate records or run destructive probes. When fixes are authorized, demonstrate the defect, add a failing regression, fix and replay the affected real entry point. Cleanup and verify all owned resources.
+El análisis de solo lectura no debe crear cuentas, enviar mensajes, modificar registros ni ejecutar sondeos destructivos. Cuando se autoricen correcciones, demuestra el defecto, añade una regresión que falle, corrige y repite el punto de entrada real afectado. Limpia todos los recursos propios y verifica su ausencia.
 
-## Output
-Finding, severity, evidence, root cause, remedy and status; separate policy decisions from defects. Include tested scope, tests not executed, cleanup and exact evidence needed to close each gap. No legal-compliance or universal security certification.
+## Resultado
+Hallazgo, gravedad, evidencia, causa raíz, solución y estado; separa las decisiones de política de los defectos. Incluye el alcance probado, pruebas no ejecutadas, limpieza y evidencia exacta necesaria para cerrar cada brecha. No declares cumplimiento legal ni certificación universal de seguridad.

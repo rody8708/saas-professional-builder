@@ -1,41 +1,41 @@
-## Problem and resulting behavior
+## Problema y comportamiento resultante
 
-{{Concrete trigger and before/after behavior; scope useful to a reviewer without conversation history.}}
+{{Desencadenante concreto y comportamiento antes/después; alcance útil para quien revisa sin conocer el historial de la conversación.}}
 
-## Verification
+## Verificación
 
-| Check or flow | Environment/revision | Actual result | Evidence |
+| Comprobación o flujo | Entorno/revisión | Resultado real | Evidencia |
 |---|---|---|---|
-| {{check}} | {{environment}} | {{passed/failed/blocked/not run; real counts}} | {{sanitized reference}} |
+| {{comprobación}} | {{entorno}} | {{aprobada/fallida/bloqueada/no ejecutada; recuentos reales}} | {{referencia sin datos sensibles}} |
 
-{{For a fix: reproduction, failing regression before, passing after and affected real-entry-point replay. For documents only: state the documentary checks and absence of runtime claims.}}
+{{Para una corrección: reproducción, regresión que falla antes, pasa después y repetición del punto de entrada real afectado. Para cambios solo documentales: indica las comprobaciones documentales y la ausencia de afirmaciones sobre ejecución.}}
 
-## Applicable controls
+## Controles aplicables
 
-Check only with supporting evidence. Mark non-applicable items explicitly with a reason.
+Marca casillas únicamente con evidencia de respaldo. Identifica explícitamente los elementos no aplicables y su motivo.
 
-- [ ] Permissions and current membership/tenant context validated.
-- [ ] Cross-tenant reads/writes and affected jobs/caches/files checked.
-- [ ] Protection matches authentication mode; contextual output handling checked.
-- [ ] Idempotency, concurrency, partial failure and durable delivery covered where relevant.
-- [ ] Data lifecycle and shared ownership follow explicit policy.
-- [ ] Required UX, accessibility, locales and client surfaces verified.
-- [ ] Documentation and contracts reflect implemented behavior.
-- [ ] Complete diff inspected; secrets/private data excluded.
-- [ ] Owned temporary resources removed and absence verified.
+- [ ] Permisos y pertenencia/contexto de tenant vigentes validados.
+- [ ] Lecturas/escrituras entre tenants y trabajos/cachés/archivos afectados comprobados.
+- [ ] Protección acorde con el modo de autenticación; tratamiento contextual de la salida comprobado.
+- [ ] Idempotencia, concurrencia, fallos parciales y entrega duradera cubiertos donde corresponda.
+- [ ] Ciclo de vida de datos y propiedad compartida conforme a una política explícita.
+- [ ] UX, accesibilidad, idiomas e interfaces de cliente requeridos verificados.
+- [ ] Documentación y contratos reflejan el comportamiento implementado.
+- [ ] Diff completo inspeccionado; secretos/datos privados excluidos.
+- [ ] Recursos temporales propios eliminados y ausencia verificada.
 
-## Data, compatibility and deployment
+## Datos, compatibilidad y despliegue
 
-{{Migration/backfill; coexistence with old code/clients; rollout order; abort criteria; rollback/forward recovery; owner. State not applicable with reason when appropriate.}}
+{{Migración/relleno de datos; coexistencia con código/clientes antiguos; orden de despliegue; criterios de interrupción; reversión/recuperación hacia delante; responsable. Indica que no aplica y el motivo cuando corresponda.}}
 
-## Operational impact
+## Impacto operativo
 
-{{Configuration changes without secrets; capacity/cost, monitoring, alerts, runbooks and recovery impact.}}
+{{Cambios de configuración sin secretos; capacidad/coste, monitorización, alertas, manuales operativos e impacto en recuperación.}}
 
-## Remaining gaps and exceptions
+## Brechas y excepciones pendientes
 
-| Gap/exception | Impact | Owner | Evidence needed to close |
+| Brecha/excepción | Impacto | Responsable | Evidencia necesaria para cerrar |
 |---|---|---|---|
-| {{item or none}} | {{impact}} | {{owner}} | {{closure}} |
+| {{elemento o ninguno}} | {{impacto}} | {{responsable}} | {{cierre}} |
 
-{{Do not call an unexecuted check passed, an unresolved evidence gap fixed, or a subset of tests production certification.}}
+{{No declares aprobada una comprobación no ejecutada, resuelta una brecha de evidencia pendiente ni certificado para producción un subconjunto de pruebas.}}

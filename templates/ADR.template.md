@@ -1,46 +1,46 @@
-# {{Decision identifier}}: {{Concrete choice}}
+# {{Identificador de decisión}}: {{Elección concreta}}
 
-Status: {{proposed / accepted / superseded}}
+Estado: {{propuesta / aceptada / sustituida}}
 
-Date: {{date}}
+Fecha: {{fecha}}
 
-Owner: {{responsible role/person}}
+Responsable: {{rol/persona responsable}}
 
-Decision authority: {{who accepts this decision}}
-Related profile/change: {{references}}
+Autoridad de decisión: {{quién acepta esta decisión}}
+Perfil/cambio relacionado: {{referencias}}
 
-## Context
+## Contexto
 
-{{Problem, observed evidence, constraints and assumptions. Distinguish requirements from preferences.}}
+{{Problema, evidencia observada, restricciones y supuestos. Distingue los requisitos de las preferencias.}}
 
-## Decision
+## Decisión
 
-{{Concrete choice, scope, affected ownership/contracts and boundaries. State what is intentionally not decided when relevant.}}
+{{Elección concreta, alcance, responsables/contratos afectados y límites. Indica qué se deja intencionalmente sin decidir cuando corresponda.}}
 
-## Alternatives
+## Alternativas
 
-| Option | Benefit | Cost or reason not selected |
+| Opción | Beneficio | Coste o motivo de descarte |
 |---|---|---|
-| {{option}} | {{benefit}} | {{tradeoff}} |
+| {{opción}} | {{beneficio}} | {{compensación entre ventajas y costes}} |
 
-## Consequences
+## Consecuencias
 
-{{Benefits, complexity, operational cost, security/privacy implications and failure behavior.}}
+{{Beneficios, complejidad, coste operativo, implicaciones de seguridad/privacidad y comportamiento ante fallos.}}
 
-## Adoption and recovery
+## Adopción y recuperación
 
-{{Compatibility, migration/rollout, rollback or forward recovery, owners and gates.}}
+{{Compatibilidad, migración/despliegue, reversión o recuperación hacia delante, responsables y requisitos.}}
 
-## Verification and enforcement
+## Verificación y aplicación de controles
 
-{{Experiment/evidence; actual tests/guards and their limitations. Mark unimplemented controls pending.}}
+{{Experimento/evidencia; pruebas/controles reales y sus limitaciones. Marca como pendientes los controles sin implementar.}}
 
-## Follow-ups
+## Seguimiento
 
-| Item | Owner | Acceptance evidence | Status |
+| Elemento | Responsable | Evidencia de aceptación | Estado |
 |---|---|---|---|
-| {{item}} | {{owner}} | {{evidence}} | {{status}} |
+| {{elemento}} | {{responsable}} | {{evidencia}} | {{estado}} |
 
-## History
+## Historial
 
-{{Supersedes/superseded-by links and reasons. Acceptance does not by itself mean implemented or verified.}}
+{{Enlaces y motivos de las decisiones que sustituye o por las que ha sido sustituida. La aceptación no significa por sí sola que esté implementada o verificada.}}

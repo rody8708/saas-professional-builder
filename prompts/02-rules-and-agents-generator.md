@@ -1,17 +1,17 @@
-# 02 · Generate project governance
+# 02 · Generar las reglas del proyecto
 
-## Request
-Create or update governance for {{project and scope}} using confirmed requirements.
+## Solicitud
+Crea o actualiza las reglas para {{proyecto y alcance}} a partir de los requisitos confirmados.
 
-## Procedure
-1. Read existing rules and the project profile; select the technical profile through the [registry](../profiles/registry.json). Preserve established conventions and user instructions.
-2. Use [RULES.template.md](../templates/RULES.template.md) and [AGENTS.template.md](../templates/AGENTS.template.md) as starting points, not files to overwrite blindly.
-3. Define the project's actual architecture, ownership, tenant model, authentication modes, authorization, data handling, test levels, documentation duties and delivery gates.
-4. List only real commands, paths and checks. Mark an unimplemented control pending with an owner instead of claiming it is enforced.
-5. Keep stack commands in the project/profile-specific sections; shared rules describe guarantees.
-6. Distinguish mandatory controls from recommendations. Every exception names reason, owner, scope, expiry/review condition and compensating verification.
-7. Include scope discipline: review-only remains read-only; implementation does not imply deployment; respect permissions already granted.
-8. Validate links, commands and consistency against the actual repository without modifying unrelated code.
+## Procedimiento
+1. Lee las reglas existentes y el perfil del proyecto; selecciona el perfil técnico mediante el [catálogo](../profiles/registry.json). Conserva las convenciones establecidas y las instrucciones del usuario.
+2. Usa [RULES.template.md](../templates/RULES.template.md) y [AGENTS.template.md](../templates/AGENTS.template.md) como puntos de partida, no como archivos que sobrescribir sin revisión.
+3. Define la arquitectura real, los responsables, el modelo de tenants, los modos de autenticación, la autorización, el tratamiento de datos, los niveles de prueba, las obligaciones de documentación y los requisitos de entrega del proyecto.
+4. Enumera solo comandos, rutas y controles reales. Marca como pendiente un control sin implementar y asígnale un responsable, en lugar de afirmar que ya se aplica.
+5. Mantén los comandos de cada tecnología en las secciones específicas del proyecto/perfil; las reglas comunes describen garantías.
+6. Distingue los controles obligatorios de las recomendaciones. Cada excepción identifica motivo, responsable, alcance, caducidad/condición de revisión y verificación compensatoria.
+7. Incluye límites de alcance: una revisión de solo lectura sigue siendo de solo lectura; implementar no implica desplegar; respeta los permisos ya concedidos.
+8. Valida enlaces, comandos y coherencia con el repositorio real sin modificar código ajeno al alcance.
 
-## Deliver
-Governance diff, decisions retained/changed, enforcement map and unresolved gates. Do not install dependencies, publish or implement features merely because the generated rules mention them.
+## Entregar
+Diferencias en las reglas, decisiones conservadas/modificadas, relación entre requisitos y controles que los aplican, y requisitos pendientes. No instales dependencias, publiques ni implementes funcionalidades por el mero hecho de que las reglas generadas las mencionen.

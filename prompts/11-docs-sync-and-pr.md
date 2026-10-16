@@ -1,20 +1,20 @@
-# 11 · Synchronize documentation and prepare review
+# 11 · Sincronizar la documentación y preparar la revisión
 
-## Request
-Prepare {{change}} for review/publication within the user's authorization.
+## Solicitud
+Prepara {{cambio}} para revisión/publicación dentro de la autorización del usuario.
 
-## Documentation
-From the final diff, identify changes to behavior, setup, architecture, APIs, modules, privacy, testing, operations and user workflows. Update the owning documentation in the project's agreed languages. Describe implemented behavior; label proposals and pending controls.
+## Documentación
+A partir del diff final, identifica cambios en comportamiento, preparación, arquitectura, API, módulos, privacidad, pruebas, operación y flujos de usuario. Actualiza la documentación responsable en los idiomas acordados del proyecto. Describe el comportamiento implementado; identifica las propuestas y los controles pendientes.
 
-Use [verification-record.template.md](../templates/verification-record.template.md) for meaningful functional evidence. Include revision/environment, commands actually run, real counts, acceptance results and explicit gaps. Explain when documentation is unaffected.
+Usa [verification-record.template.md](../templates/verification-record.template.md) para la evidencia funcional significativa. Incluye revisión/entorno, comandos realmente ejecutados, recuentos reales, resultados de aceptación y brechas explícitas. Explica cuándo la documentación no resulta afectada.
 
-## Hygiene
-Inspect the exact file list and complete staged diff before commit/push. Run the project's secret/private-data checks; confirm operational configuration, customer data, logs, databases and backups are excluded. Verify cleanup of owned test resources, including ignored/external ones.
+## Higiene
+Inspecciona la lista exacta de archivos y el diff completo preparado antes de crear commits o hacer push. Ejecuta los controles de secretos/datos privados del proyecto; confirma que se excluyan configuración operativa, datos de clientes, registros, bases de datos y copias de seguridad. Verifica la limpieza de los recursos propios de prueba, incluidos los ignorados/externos.
 
-Validate the intended repository, visibility, base branch and coherent scope before publication. Preserve unrelated work and follow the project's branch policy. If publication is already authorized, complete it after the concrete reviewable work and checks; do not add a redundant approval request.
+Valida el repositorio previsto, su visibilidad, la rama base y la coherencia del alcance antes de publicar. Conserva el trabajo ajeno al alcance y sigue la política de ramas del proyecto. Si la publicación ya está autorizada, complétala una vez preparado el trabajo concreto revisable y superadas las comprobaciones; no añadas una solicitud de aprobación redundante.
 
-## Review description
-Use [PULL_REQUEST_TEMPLATE.md](../templates/PULL_REQUEST_TEMPLATE.md): problem and resulting behavior, scope, verification, migration/compatibility, deployment/recovery, privacy/security impact and material gaps. Check boxes only with evidence; no universal production-readiness claim.
+## Descripción para revisión
+Usa [PULL_REQUEST_TEMPLATE.md](../templates/PULL_REQUEST_TEMPLATE.md): problema y comportamiento resultante, alcance, verificación, migración/compatibilidad, despliegue/recuperación, impacto en privacidad/seguridad y brechas relevantes. Marca casillas solo con evidencia; no hagas una afirmación universal de preparación para producción.
 
-## Deliver
-Docs/hygiene summary and the final review description. Report publication outcome only if it actually happened; otherwise state the prepared artifact and any required unresolved gate.
+## Entregar
+Resumen de documentación/higiene y descripción final para revisión. Comunica el resultado de la publicación solo si ocurrió realmente; de lo contrario, indica el artefacto preparado y cualquier requisito obligatorio aún pendiente.
