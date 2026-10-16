@@ -25,7 +25,7 @@ Validación local del cambio, 2026-10-16:
 
 | Componente | Entorno | Resultado |
 |---|---|---|
-| Instalación PHP desde cero con manifiesto y lock propios | Windows, PHP 8.5.1, Composer 2.9.5, PHPUnit 11.5.55 | 27 dependencias fijadas; auditoría sin avisos; 24 tests/455 aserciones y 12 tests del lector Clover; PASS |
+| Instalación PHP desde cero con manifiesto y lock propios | Windows, PHP 8.5.1, Composer 2.10.3, PHPUnit 11.5.55 | 27 dependencias fijadas; auditoría sin avisos; 24 tests/455 aserciones y 12 tests del lector Clover; PASS |
 | Aislamiento y fallos del runner PHP | Python 3.13.6, Windows | 12 tests; fallos de comandos, timeout real con proceso hijo, selección de PHP, configuración heredada y limpieza; PASS |
 | Catálogo y regresiones | Python 3.13.6, Windows | Validador PASS y 23 tests aprobados |
 | Guard Node/TypeScript | Node 24.16.0, Windows | 28 tests; PASS |
@@ -37,7 +37,13 @@ El nuevo runner PHP instala las herramientas en un directorio temporal, sin usar
 
 La revisión independiente reprodujo dos defectos del runner antes de su publicación: un timeout podía dejar un hijo vivo e impedir la limpieza en Windows, y Composer Unix podía usar el PHP de PATH en lugar del seleccionado. Se corrigieron la terminación del árbol de procesos y la invocación explícita de PHP. La regresión real verifica salida 124, limpieza antes del retorno y ausencia de la escritura tardía del hijo; otra ejecución real comprueba la propagación de salida 19. Los scripts PHP de Composer y los wrappers incompatibles tienen casos específicos.
 
-La ejecución remota del workflow permanece pendiente hasta tener una ejecución de GitHub Actions aprobada. La validación sintáctica y las pruebas locales no sustituyen esa evidencia.
+La primera ejecución remota señaló que Composer 2.9.5 estaba afectado por [GHSA-f9f8-rm49-7jv2](https://github.com/composer/composer/security/advisories/GHSA-f9f8-rm49-7jv2). La acción deshabilitó su autenticación como mitigación. Se actualizó el CI a Composer 2.10.3 y el requisito documentado a 2.9.8 o posterior; la auditoría del lock no comprueba vulnerabilidades del ejecutable Composer instalado.
+
+La repetición local con Composer 2.10.3 usó un PHAR temporal descargado del proveedor y contrastado con su SHA-256 publicado (`7a2d379d5b8ffdaa028580ef26494c36d2feef4b178d3dd1473a4dbc5e17c8d6`). La instalación global no se modificó y el PHAR temporal también se eliminó.
+
+En [la primera ejecución de CI](https://github.com/rody8708/saas-professional-builder/actions/runs/38958840568), Ubuntu aprobó las suites y Windows detectó un fallo en la fixture que simulaba un directorio reparse. El mock comparaba una ruta sin normalizar con la ruta canónica utilizada por el validador. Se reprodujo el fallo con un alias sintético `normalization-hop/..` antes del arreglo y se corrigió únicamente la prueba; el caso ahora comprueba ambas representaciones y sigue fallando si el validador enumera el directorio rechazado. El control del paquete no se debilitó ni se omitió la prueba.
+
+La ejecución remota del workflow actualizado permanece pendiente hasta tener una ejecución de GitHub Actions aprobada. La validación sintáctica y las pruebas locales no sustituyen esa evidencia.
 
 ## Reproducción
 

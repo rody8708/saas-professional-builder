@@ -36,7 +36,7 @@ Las herramientas se instalan con la distribución y el procedimiento apropiados 
 |---|---|---|
 | Catálogo y validadores Python | Python 3.10 o posterior | Python 3.13.6 |
 | Node/TypeScript | Node.js | Node 24.16.0 |
-| PHP | PHP con las extensiones de [su guía](../profiles/php/PROFILE.md) y Composer 2.9 o posterior | PHP 8.2 en Linux, PHP 8.5 en Windows; Composer 2.9.5 |
+| PHP | PHP con las extensiones de [su guía](../profiles/php/PROFILE.md) y Composer 2.9.8 o posterior | PHP 8.2 en Linux, PHP 8.5 en Windows; Composer 2.10.3 |
 | .NET | SDK y runtime .NET 8, PowerShell 7 | SDK 8.0.413; PowerShell del runner |
 
 Los resultados observados y las versiones efectivamente ejecutadas están en [validation.md](validation.md). El CI usa parches disponibles de las líneas PHP indicadas y registra su versión; no afirma probar todas las combinaciones posibles. .NET necesita SDK 8 aunque tengas instalado SDK 9 o 10; su `global.json` puede seleccionar un SDK 8 más reciente ya instalado y el CI registra esa selección efectiva.

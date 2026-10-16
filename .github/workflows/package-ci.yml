@@ -62,7 +62,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, mbstring, xml, xmlwriter
           coverage: none
-          tools: composer:2.9.5
+          tools: composer:2.10.3
 
       - name: Registrar runtimes
         run: |

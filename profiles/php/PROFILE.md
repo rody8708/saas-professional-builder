@@ -29,7 +29,7 @@ La publicación requiere los [gates del catálogo](../README.md#mismo-estándar-
 
 ## Regresiones del perfil
 
-Requisitos preinstalados: Python 3.10+, PHP 8.2+ con DOM, JSON, libxml, mbstring, Phar, tokenizer, XML y XMLWriter, y Composer 2.9 o posterior. Se necesita acceso de red a Packagist y a los archivos de distribución de sus dependencias. No hace falta instalar PHPUnit globalmente ni tener otro proyecto.
+Requisitos preinstalados: Python 3.10+, PHP 8.2+ con DOM, JSON, libxml, mbstring, Phar, tokenizer, XML y XMLWriter, y Composer **2.9.8 o posterior**. La versión validada actualmente es **2.10.3**. Composer 2.9.5 queda solo como evidencia histórica: está afectado por [GHSA-f9f8-rm49-7jv2](https://github.com/composer/composer/security/advisories/GHSA-f9f8-rm49-7jv2), corregido en 2.9.8. Se necesita acceso de red a Packagist y a los archivos de distribución de sus dependencias. No hace falta instalar PHPUnit globalmente ni tener otro proyecto.
 
 Desde la raíz del repositorio, tanto en Windows como en Linux:
 
@@ -54,7 +54,9 @@ Cada comando dispone de 900 segundos. Ante timeout o interrupción, el runner te
 
 El segundo comando verifica ese aislamiento, la detención en cada etapa, la propagación de fallos y la limpieza con 12 tests; no descarga dependencias. Incluye procesos sintéticos reales: un hijo conserva el directorio de trabajo e intenta escribir después del timeout. La regresión exige que el árbol termine, la limpieza finalice antes del retorno y esa escritura nunca ocurra. Estos 12 tests pasan en Windows y en Ubuntu WSL.
 
-La ejecución real nueva en Windows pasó con PHP 8.5.1, Python 3.13.6, Composer 2.9.5 y PHPUnit 11.5.55: 24 tests del guard (455 aserciones) y 12 del lector. El número de aserciones del caso sin marcador depende de la profundidad del temporal, porque comprueba cada ascenso hasta la raíz; no representa un porcentaje de cobertura. El historial y la evidencia de otros entornos están en [validación](../../docs/validation.md).
+La ejecución real nueva en Windows pasó con PHP 8.5.1, Python 3.13.6, Composer **2.10.3** y PHPUnit 11.5.55: 24 tests del guard (455 aserciones) y 12 del lector, auditoría sin avisos y limpieza verificada. Se descargó el PHAR desde [la distribución oficial de Composer](https://getcomposer.org/download/), se cotejó su SHA-256 con la página y el archivo oficial de checksums, y se ejecutó mediante `--composer` desde un temporal propio; no se modificó Composer global. El checksum verificado fue `7a2d379d5b8ffdaa028580ef26494c36d2feef4b178d3dd1473a4dbc5e17c8d6`. El mismo lock funcionó sin cambios.
+
+La ejecución anterior con Composer 2.9.5 también aprobó 24 tests del guard (455 aserciones) y 12 del lector; ese resultado histórico no valida la seguridad del ejecutable Composer. `composer audit --locked` audita las dependencias del lock, no al propio Composer cuando se ejecuta como PHAR externo. El número de aserciones del caso sin marcador depende de la profundidad del temporal, porque comprueba cada ascenso hasta la raíz; no representa un porcentaje de cobertura. El historial y la evidencia de otros entornos están en [validación](../../docs/validation.md).
 
 Para actualizar dependencias, genera y revisa un lock nuevo dentro de un temporal aislado, audítalo sin exclusiones y repite estas pruebas. No uses `composer update` en el árbol del perfil ni desactives auditorías para conseguir una ejecución verde. Si aparece un advisory nuevo, la reproducción debe fallar hasta resolverlo; un resultado histórico no certifica la seguridad futura.
 
