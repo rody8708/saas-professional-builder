@@ -10,7 +10,7 @@ El núcleo define los resultados exigidos: aislamiento entre tenants, autorizaci
 
 | Perfil | Control incluido | Regresiones del control |
 |---|---|---|
-| [PHP](profiles/php/PROFILE.md) | Fronteras de arquitectura y lector de umbral Clover | 24 de arquitectura y 12 del parser/umbral con XML sintético; Windows y WSL |
+| [PHP](profiles/php/PROFILE.md) | Fronteras de arquitectura y lector de umbral Clover | 24 de arquitectura y 12 del parser/umbral con XML sintético; Windows y Linux |
 | [Node.js / TypeScript](profiles/node-typescript/PROFILE.md) | Imports y rutas prohibidas, con análisis léxico y política explícita | 28 tests; Node sin paquetes externos |
 | [Python](profiles/python/PROFILE.md) | Imports estáticos y loaders conocidos mediante AST | 18 tests; biblioteca estándar |
 | [.NET / C#](profiles/dotnet/PROFILE.md) | Sintaxis C# y referencias literales entre proyectos, con Roslyn del SDK | 48 escenarios; sin paquetes NuGet externos |

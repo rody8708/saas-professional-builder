@@ -43,7 +43,26 @@ La repetición local con Composer 2.10.3 usó un PHAR temporal descargado del pr
 
 En [la primera ejecución de CI](https://github.com/rody8708/saas-professional-builder/actions/runs/38958840568), Ubuntu aprobó las suites y Windows detectó un fallo en la fixture que simulaba un directorio reparse. El mock comparaba una ruta sin normalizar con la ruta canónica utilizada por el validador. Se reprodujo el fallo con un alias sintético `normalization-hop/..` antes del arreglo y se corrigió únicamente la prueba; el caso ahora comprueba ambas representaciones y sigue fallando si el validador enumera el directorio rechazado. El control del paquete no se debilitó ni se omitió la prueba.
 
-La ejecución remota del workflow actualizado permanece pendiente hasta tener una ejecución de GitHub Actions aprobada. La validación sintáctica y las pruebas locales no sustituyen esa evidencia.
+## CI remoto ejecutado
+
+[Package CI, ejecución 38959450626](https://github.com/rody8708/saas-professional-builder/actions/runs/38959450626), commit `2d0978dac410b1b9beff3038aefde97a1fea55bc`, terminó con ambos jobs aprobados el 2026-10-16. Cada entorno instaló las dependencias PHP desde cero y aprobó la auditoría del lock y las comprobaciones finales de limpieza.
+
+| Suite o control | Windows Server 2025 | Ubuntu 24.04 |
+|---|---|---|
+| Validador del paquete | PASS | PASS |
+| Regresiones del validador | 23 tests; PASS | 23 tests; PASS |
+| Guard Node/TypeScript | 28 tests; PASS | 28 tests; PASS |
+| Guard Python | 18 tests; PASS | 18 tests; PASS |
+| Ejecutor PHP: aislamiento y fallos | 12 tests; PASS | 12 tests; PASS |
+| Guard PHP | 24 tests/455 aserciones; PASS | 24 tests/451 aserciones; PASS |
+| Lector Clover | 12 tests; PASS | 12 tests; PASS |
+| Guard .NET/C# | 48 escenarios; PASS | 48 escenarios; PASS |
+
+Son 165 tests/escenarios por entorno, sin contar el validador general como test adicional. Las dos compilaciones .NET terminaron sin advertencias ni errores. Los checks finales comprobaron que el checkout no contenía cambios, archivos ignorados ni archivos no versionados.
+
+Versiones observadas en ambos jobs: Python 3.13.6, Node 24.16.0, Composer 2.10.3, PHPUnit 11.5.55, SDK .NET 8.0.425 y PowerShell 7.6.6. PHP fue 8.5.11 en Windows y 8.2.34 en Ubuntu. El workflow instala SDK 8.0.413; `global.json` seleccionó 8.0.425, ya presente y compatible con su política de avance. No se confunden estas versiones remotas con las de la evidencia local anterior.
+
+El registro corresponde al commit enlazado. Los cambios posteriores tienen su ejecución independiente en los [checks del PR](https://github.com/rody8708/saas-professional-builder/pull/1/checks); una ejecución anterior no acredita automáticamente otra revisión. El workflow configura salida Python UTF-8 para conservar también los mensajes en español en Windows.
 
 ## Reproducción
 
@@ -77,7 +96,7 @@ En .NET se reprodujo una omisión al componer namespaces anidados: la regresión
 
 - Los guards de arquitectura tienen alcance limitado; no son prueba de corrección de negocio ni un análisis completo de símbolos y dependencias.
 - No se ha generado Clover mediante PCOV/Xdebug. Solo se ha validado el lector de reportes sintéticos.
-- No se han ejecutado CI remoto, despliegue, workflows de negocio, autenticación, cobros sandbox, pruebas de navegador ni restauración de una aplicación: este paquete no implementa esas capacidades.
+- El CI remoto ejecutado corresponde al paquete. No se han ejecutado CI de una aplicación, despliegue, workflows de negocio, autenticación, cobros sandbox, pruebas de navegador ni restauración de un SaaS: este paquete no implementa esas capacidades.
 - Los perfiles no proporcionan parsers de cobertura universales; cada proyecto debe configurar su runner, medición y umbrales reales.
 - El chequeo de enlaces verifica destinos de archivos locales; no comprueba anchors Markdown ni disponibilidad de sitios web.
 - Un perfil con `controls-validated` acredita únicamente la ejecución de los controles enumerados. El proyecto debe cumplir sus siete requisitos de aceptación con evidencia funcional independiente.
