@@ -1,20 +1,20 @@
-# 06 · Review concrete defects
+# 06 · Revisar defectos concretos
 
-## Scope
-Review {{diff, pull request, branch or artifact}} against the project rules/profile. This is read-only unless fixes were separately authorized.
+## Alcance
+Revisa {{diff, pull request, rama o artefacto}} frente a las reglas y el perfil del proyecto. La revisión es de solo lectura salvo que las correcciones se hayan autorizado por separado.
 
-## Inspect
-- Correctness: invariants, transactions, concurrency, precision, timezone, partial failure and retries.
-- Architecture: declared boundaries, ownership, inappropriate coupling and controls that scan no code or overstate their coverage.
-- Security: actual authentication mode, explicit/revalidated permission, cross-tenant access in reads/writes/jobs/cache/files, contextual CSRF/XSS, injection, egress and safe errors.
-- Billing if present: stable idempotency keys during unknown outcomes, provider confirmation, event ordering, reconciliation and durable delivery.
-- Privacy: chosen data lifecycle, minimized logs, shared ownership, export/suppression/retention and restoration.
-- Tests: credible regression, production-engine semantics, synthetic isolation, meaningful assertions and verified cleanup.
-- UX: agreed locales, formats, accessibility, states and actual visual verification.
-- Delivery: contracts/docs, migration compatibility/recovery, operational ownership and truthful evidence.
+## Inspeccionar
+- Corrección: invariantes, transacciones, concurrencia, precisión, zona horaria, fallos parciales y reintentos.
+- Arquitectura: límites declarados, responsabilidades, acoplamiento inadecuado y controles que no analizan código o exageran su alcance.
+- Seguridad: modo real de autenticación, permisos explícitos/revalidados, acceso entre tenants en lecturas/escrituras/trabajos/cachés/archivos, CSRF/XSS según el contexto, inyección, tráfico saliente y errores seguros.
+- Facturación, si existe: claves de idempotencia estables ante resultados desconocidos, confirmación del proveedor, orden de eventos, reconciliación y entrega duradera.
+- Privacidad: ciclo de vida elegido para los datos, registros mínimos, propiedad compartida, exportación/supresión/retención y restauración.
+- Pruebas: regresión creíble, semántica del motor de producción, aislamiento sintético, aserciones significativas y limpieza verificada.
+- UX: idiomas acordados, formatos, accesibilidad, estados y verificación visual real.
+- Entrega: contratos/documentación, compatibilidad/recuperación de migraciones, responsables operativos y evidencia veraz.
 
-## Method
-Read the relevant diff and callers. For every finding, establish a concrete input/state and wrong outcome, with exact path/line evidence. Separate demonstrated defects from unanswered decisions and unexecuted checks. Do not invent runtime evidence or execute mutating acceptance flows during a read-only review.
+## Método
+Lee las diferencias pertinentes y los puntos de llamada. Para cada hallazgo, establece una entrada/estado concreto y un resultado incorrecto, con evidencia de ruta/línea exactas. Separa los defectos demostrados de las decisiones sin resolver y las comprobaciones sin ejecutar. No inventes evidencia de ejecución ni ejecutes flujos de aceptación que modifiquen estado durante una revisión de solo lectura.
 
-## Output
-Rank actionable findings by severity with location, failing scenario, impact and remedy. Then state the inspected scope and material verification gaps. If no actionable defect was found, say so without implying complete safety or production certification.
+## Resultado
+Ordena los hallazgos accionables por gravedad, con ubicación, escenario de fallo, impacto y solución. Después indica el alcance inspeccionado y las brechas de verificación relevantes. Si no se encontró ningún defecto accionable, dilo sin implicar seguridad completa ni certificación para producción.

@@ -1,28 +1,43 @@
 {
   "id": "dotnet",
-  "name": ".NET / C# with ASP.NET Core and external persistence adapters",
-  "languages": ["C#"],
+  "name": ".NET / C# con ASP.NET Core y adaptadores externos de persistencia",
+  "languages": [
+    "C#"
+  ],
   "status": "controls-validated",
   "guide": "PROFILE.md",
-  "templates": ["templates/architecture-guard.example.json"],
-  "tests": ["tests/ArchitectureGuard.Regression.csproj", "tests/Program.cs"],
-  "implemented_controls": [
-    "Roslyn syntax checks for configured Domain/Application namespace and type dependencies",
-    "Literal direct/transitive project references and explicit package/framework/assembly dependency checks",
-    "Fail-closed source/configuration/project discovery, syntax and unresolved conditional-source checks",
-    "Isolated synthetic regression executable and real CLI exit-code tests with verified temporary cleanup"
+  "templates": [
+    "templates/architecture-guard.example.json"
   ],
-  "project_gates": ["architecture", "tenant-isolation", "authorization", "data-integrity", "retry-safety", "real-entrypoint", "operations"],
+  "tests": [
+    "tests/ArchitectureGuard.Regression.csproj",
+    "tests/Program.cs"
+  ],
+  "implemented_controls": [
+    "Comprobaciones de sintaxis Roslyn para dependencias de espacios de nombres y tipos configuradas en Domain/Application",
+    "Referencias literales directas/transitivas entre proyectos y comprobaciones explícitas de dependencias de paquetes/frameworks/ensamblados",
+    "Detección de código fuente/configuración/proyectos que rechaza errores, comprobaciones de sintaxis y código condicional no resuelto",
+    "Ejecutable de regresiones sintéticas aisladas y pruebas de códigos de salida reales de la CLI con limpieza temporal comprobada"
+  ],
+  "project_gates": [
+    "architecture",
+    "tenant-isolation",
+    "authorization",
+    "data-integrity",
+    "retry-safety",
+    "real-entrypoint",
+    "operations"
+  ],
   "validation": {
-    "environment": "Windows; .NET SDK 8.0.413 selected by global.json; .NET 8 runtime; PowerShell 7.6.5; SDK-bundled Roslyn; offline NuGet sources",
-    "command": "From profiles/dotnet: pwsh -NoProfile -File ./tools/Invoke-Profile.ps1 -Mode Test",
-    "result": "2026-10-16: nested-namespace bypass reproduced before correction (42 scenarios, one expected failure). After composing enclosing namespace blocks, build passed with zero warnings/errors; 48 scenarios passed with zero failures, including five real CLI scenarios and permitted/forbidden dotted, nested and multi-segment namespace cases. All 48 synthetic fixtures and temporary build/restore/CLI-home directories were removed and verified. No bin/obj/artifacts or owned temporary directories remained.",
+    "environment": "Windows; SDK .NET 8.0.413 seleccionado por global.json; runtime .NET 8; PowerShell 7.6.5; Roslyn incluido en el SDK; fuentes NuGet sin conexión",
+    "command": "Desde profiles/dotnet: pwsh -NoProfile -File ./tools/Invoke-Profile.ps1 -Mode Test",
+    "result": "2026-10-16: evasión mediante espacios de nombres anidados reproducida antes de corregirla (42 escenarios, un fallo esperado). Tras componer los bloques de espacios de nombres contenedores, la compilación pasó sin advertencias ni errores; 48 escenarios pasaron sin fallos, incluidos cinco escenarios reales de CLI y casos permitidos/prohibidos de espacios de nombres con puntos, anidados y de varios segmentos. Se eliminaron y verificaron los 48 recursos sintéticos y los directorios temporales de compilación/restauración de dependencias/usuario de CLI. No quedaron bin/obj/artifacts ni directorios temporales propios.",
     "limitations": [
-      "Only package controls are tested; no destination application, database, identity provider or payment service was exercised.",
-      "GitHub CI and Linux execution were not run.",
-      "Source inspection is not semantic analysis or full evaluated MSBuild/NuGet dependency resolution; generated code, imported props/targets, reflection and dynamic behavior require additional checks.",
-      "Inactive conditional source is rejected rather than certified; build-aware verification is required for such projects.",
-      "The destination must implement and verify all seven project gates, including architecture beyond this bounded scanner."
+      "Solo se prueban los controles del paquete; no se ejercitó ninguna aplicación destino, base de datos, proveedor de identidad ni servicio de pagos.",
+      "Este registro histórico no incluye ejecución de GitHub CI ni Linux; la evidencia posterior de cada entorno se registra en docs/validation.md.",
+      "La inspección de código fuente no es análisis semántico ni resolución completa de dependencias MSBuild/NuGet evaluadas; el código generado, props/targets importados, reflexión y comportamiento dinámico requieren controles adicionales.",
+      "El código condicional inactivo se rechaza en lugar de certificarse; esos proyectos requieren verificación que considere la compilación.",
+      "El destino debe implementar y verificar los siete requisitos del proyecto, incluida la arquitectura más allá de este detector de alcance limitado."
     ]
   }
 }

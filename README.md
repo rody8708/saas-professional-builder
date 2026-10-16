@@ -10,7 +10,7 @@ El núcleo define los resultados exigidos: aislamiento entre tenants, autorizaci
 
 | Perfil | Control incluido | Regresiones del control |
 |---|---|---|
-| [PHP](profiles/php/PROFILE.md) | Fronteras de arquitectura y umbral de cobertura Clover | 24 de arquitectura y 12 de cobertura; Windows y WSL |
+| [PHP](profiles/php/PROFILE.md) | Fronteras de arquitectura y lector de umbral Clover | 24 de arquitectura y 12 del parser/umbral con XML sintético; Windows y WSL |
 | [Node.js / TypeScript](profiles/node-typescript/PROFILE.md) | Imports y rutas prohibidas, con análisis léxico y política explícita | 28 tests; Node sin paquetes externos |
 | [Python](profiles/python/PROFILE.md) | Imports estáticos y loaders conocidos mediante AST | 18 tests; biblioteca estándar |
 | [.NET / C#](profiles/dotnet/PROFILE.md) | Sintaxis C# y referencias literales entre proyectos, con Roslyn del SDK | 48 escenarios; sin paquetes NuGet externos |
@@ -34,6 +34,8 @@ Ejemplo para una funcionalidad existente:
 > Usa esta skill para implementar invitaciones de miembros en nuestro backend .NET. Lee primero las reglas del repositorio. Conserva el framework y la base de datos existentes; prueba permisos, cruce de tenants, expiración, duplicados y el flujo real, con datos sintéticos.
 
 No hace falta instalar todos los runtimes para usar la documentación. Los comandos de cada perfil requieren únicamente las herramientas que su guía especifica. Este repositorio no instala ni activa la skill en tu entorno automáticamente.
+
+La [guía de preparación](docs/setup.md) explica cómo obtener una revisión, usar la skill y ejecutar los controles desde cero con dependencias aisladas. El español es el idioma de la documentación y las plantillas; los identificadores de código, comandos y el texto legal original de MIT conservan su forma original.
 
 ## Qué cambia respecto al paquete original
 
@@ -64,6 +66,8 @@ templates/               6 plantillas comunes de documentación
 scripts/                 Validador del paquete y catálogo
 tests/                   Regresiones del validador
 docs/                    Procedencia, evidencia y límites
+LICENSE                  Licencia MIT
+.github/workflows/       CI del paquete en Windows y Linux
 ```
 
 ## Verificar este paquete
@@ -82,12 +86,18 @@ Para los controles de cada perfil:
 ```sh
 node --test profiles/node-typescript/tests/architecture-guard.test.mjs
 python -B -m unittest discover -s profiles/python/tests -p "test_*.py" -v
+python -B -m unittest discover -s profiles/php/tests -p "test_runner.py" -v
+python -B profiles/php/tools/run-tests.py
 pwsh -NoProfile -File profiles/dotnet/tools/Invoke-Profile.ps1 -Mode Test
 ```
 
-PHP necesita PHP, PHPUnit y su autoloader: los comandos completos están en [su guía](profiles/php/PROFILE.md). Sus tests no arrancan una aplicación ni leen su configuración operativa. El wrapper .NET requiere SDK 8 y PowerShell 7 y elimina sus artefactos temporales.
+PHP necesita PHP y Composer instalados. Su runner instala las dependencias fijadas en un directorio temporal propio; no usa el autoloader de otra aplicación. Los comandos y requisitos completos están en [su guía](profiles/php/PROFILE.md). El wrapper .NET requiere SDK 8 y PowerShell 7. Ambos eliminan sus artefactos temporales.
 
-No hay un workflow activo de GitHub Actions en esta entrega. La plantilla de CI del perfil PHP debe adaptarse al proyecto que la use. Cada destino integra sus checks reales y registra por separado la ejecución local y remota.
+[Package CI](.github/workflows/package-ci.yml) ejecuta las suites del paquete en Windows y Linux para cambios propuestos a `main`; sus [resultados](https://github.com/rody8708/saas-professional-builder/actions/workflows/package-ci.yml) se registran por revisión. La plantilla de CI del perfil PHP sigue destinada al SaaS que la adopte y requiere adaptación. Cada aplicación integra sus propios checks funcionales.
+
+## Licencia
+
+Este paquete se distribuye bajo [MIT](LICENSE), elegida por su propietario. Permite uso, modificación y distribución, incluidos usos comerciales, conservando el aviso de autoría y la licencia. Las dependencias mantienen sus propias licencias. La licencia no concede permisos de escritura sobre este repositorio ni modifica la protección de `main`.
 
 ## Extender con responsabilidad
 

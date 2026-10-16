@@ -1,0 +1,29 @@
+{
+  "name": "rody8708/saas-professional-builder-php-checks",
+  "description": "Dependencias aisladas para verificar las plantillas del perfil PHP",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.2",
+    "ext-dom": "*",
+    "ext-json": "*",
+    "ext-libxml": "*",
+    "ext-mbstring": "*",
+    "ext-xml": "*",
+    "ext-xmlwriter": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "11.5.55"
+  },
+  "config": {
+    "allow-plugins": false,
+    "audit": {
+      "block-insecure": true
+    },
+    "platform": {
+      "php": "8.2.0"
+    },
+    "secure-http": true,
+    "sort-packages": true
+  }
+}

@@ -1,21 +1,21 @@
-# 13 · Review experience, accessibility and localization
+# 13 · Revisar experiencia, accesibilidad y localización
 
-## Scope
-{{Screens, flows, supported devices, locales and themes}}
-Read the project profile and [UX guidance](../core/ux-i18n-assistant.md). Review-only requests remain read-only.
+## Alcance
+{{Pantallas, flujos, dispositivos soportados, idiomas y temas}}
+Lee el perfil del proyecto y la [guía de UX](../core/ux-i18n-assistant.md). Las solicitudes de revisión de solo lectura siguen siendo de solo lectura.
 
-## Inspect
-- Workflow clarity, hierarchy, spacing, typography and consistent components/tokens.
-- Reachable states: loading, empty, success, validation, error, denial, commercial limit and offline where applicable.
-- Agreed devices/viewports, long content, zoom and orientation where relevant.
-- Accessibility target: keyboard, focus order, labels, errors, contrast, touch targets and assistive technology.
-- Localized copy, placeholders, UTF-8, fallback and correct dates/timezones/numbers/currency.
-- Dynamic plans/limits from their source; plain language rather than implementation terminology.
-- Destructive actions identify object/impact with proportional confirmation.
-- Help reflects actual capabilities and does not claim authorization or completion.
+## Inspeccionar
+- Claridad del flujo, jerarquía, espaciado, tipografía y coherencia de componentes/variables de diseño.
+- Estados alcanzables: carga, vacío, éxito, validación, error, denegación, límite comercial y sin conexión cuando corresponda.
+- Dispositivos/tamaños de ventana acordados, contenido largo, ampliación y orientación cuando sean pertinentes.
+- Objetivo de accesibilidad: teclado, orden del foco, etiquetas, errores, contraste, áreas táctiles y tecnología de asistencia.
+- Textos localizados, marcadores de posición, UTF-8, idioma alternativo y fechas/zonas horarias/números/monedas correctos.
+- Planes/límites dinámicos desde su fuente; lenguaje sencillo en lugar de terminología de implementación.
+- Las acciones destructivas identifican objeto/impacto con una confirmación proporcional.
+- La ayuda refleja las capacidades reales y no afirma autorización ni finalización.
 
-## Verify
-Open actual screens in the supported browser/client using synthetic data. Record route, viewport, locale, theme, state, expected and observed result. Run available checks and report absent guards. For authorized fixes, recheck the affected matrix after editing.
+## Verificar
+Abre las pantallas reales en el navegador/cliente soportado con datos sintéticos. Registra ruta, tamaño de ventana, idioma, tema, estado y resultado esperado/observado. Ejecuta las comprobaciones disponibles e informa de los controles ausentes. Para correcciones autorizadas, vuelve a comprobar la matriz afectada después de editar.
 
-## Deliver
-Actionable findings with evidence, verified combinations and explicit gaps. Sanitize captures. Component tests or static screenshots alone do not demonstrate the entire workflow.
+## Entregar
+Hallazgos accionables con evidencia, combinaciones verificadas y brechas explícitas. Elimina los datos sensibles de las capturas. Las pruebas de componentes o capturas estáticas por sí solas no demuestran el flujo completo.

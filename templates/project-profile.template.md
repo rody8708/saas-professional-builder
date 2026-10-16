@@ -1,133 +1,133 @@
-# Project profile: {{project name}}
+# Perfil del proyecto: {{nombre del proyecto}}
 
-Status: {{draft / accepted / partially decided}}
+Estado: {{borrador / aceptado / parcialmente decidido}}
 
-Owner: {{owner}}
+Responsable: {{responsable}}
 
-Updated: {{date}}
+Actualizado: {{fecha}}
 
-Technical profile: {{id and path from the profile registry}}
-Decision references: {{accepted decisions and requirements}}
+Perfil técnico: {{id y ruta del catálogo de perfiles}}
+Referencias de decisiones: {{decisiones y requisitos aceptados}}
 
-Complete what affects the current task. Mark unknowns pending with impact/owner; do not silently replace them with defaults. The profile selects mechanisms while core guidance defines guarantees.
+Completa lo que afecte a la tarea actual. Marca las incógnitas como pendientes con impacto/responsable; no las sustituyas silenciosamente por valores predeterminados. El perfil selecciona mecanismos y la guía del núcleo define garantías.
 
-## Product and scope
+## Producto y alcance
 
-| Field | Decision |
+| Campo | Decisión |
 |---|---|
-| Users and valuable workflows | {{actors and jobs}} |
-| Current milestone and acceptance | {{bounded deliverable}} |
-| Explicitly excluded capabilities | {{scope}} |
-| Data sensitivity and deployment constraints | {{constraints}} |
-| Product/engineering/security decision owners | {{roles}} |
+| Usuarios y flujos de valor | {{actores y tareas}} |
+| Hito actual y aceptación | {{entregable delimitado}} |
+| Capacidades explícitamente excluidas | {{alcance}} |
+| Sensibilidad de datos y restricciones de despliegue | {{restricciones}} |
+| Responsables de decisiones de producto/ingeniería/seguridad | {{roles}} |
 
-## Stack and repository
+## Tecnologías y repositorio
 
-| Field | Decision |
+| Campo | Decisión |
 |---|---|
-| Language/runtime and supported versions | {{decision}} |
-| Framework and conventions | {{decision}} |
-| Package manager and dependency lock strategy | {{decision}} |
-| Client surfaces/frameworks | {{decision}} |
-| Architecture/deployment shape and reason | {{decision}} |
-| Module boundaries and owners | {{decision}} |
-| Repository/visibility and integration branch | {{decision; no remote if absent}} |
-| Base/branch/change policy | {{decision}} |
-| Publication, merge and deployment authority | {{roles and existing authorization}} |
+| Lenguaje/entorno de ejecución y versiones soportadas | {{decisión}} |
+| Framework y convenciones | {{decisión}} |
+| Gestor de paquetes y estrategia de fijación de dependencias | {{decisión}} |
+| Interfaces/frameworks de cliente | {{decisión}} |
+| Arquitectura/estructura de despliegue y motivo | {{decisión}} |
+| Límites de módulos y responsables | {{decisión}} |
+| Repositorio/visibilidad y rama de integración | {{decisión; sin remoto si no existe}} |
+| Política de base/ramas/cambios | {{decisión}} |
+| Autoridad para publicar, fusionar y desplegar | {{roles y autorización existente}} |
 
-Use framework facilities where suitable; custom infrastructure needs a concrete reason.
+Usa las funciones del framework cuando sean adecuadas; la infraestructura propia necesita un motivo concreto.
 
-## Persistence and tenancy
+## Persistencia y tenants
 
-| Field | Decision |
+| Campo | Decisión |
 |---|---|
-| Production engine/version and other supported engines | {{decision}} |
-| Tenant model and effective-context resolution | {{row/schema/database/other}} |
-| Relationship constraints and shared-data ownership | {{decision}} |
-| Reads/writes/search/export isolation | {{mechanisms}} |
-| Job/queue/cache/file isolation | {{mechanisms}} |
-| Transactions, concurrency and exact numeric representation | {{decision}} |
-| Migration/backfill/expand-contract/recovery | {{mechanism and owners}} |
-| Durable events, outbox and reconciliation | {{required effects and mechanism}} |
+| Motor/versión de producción y otros motores soportados | {{decisión}} |
+| Modelo de tenants y resolución del contexto efectivo | {{fila/esquema/base de datos/otro}} |
+| Restricciones de relaciones y propiedad de datos compartidos | {{decisión}} |
+| Aislamiento de lecturas/escrituras/búsquedas/exportaciones | {{mecanismos}} |
+| Aislamiento de trabajos/colas/cachés/archivos | {{mecanismos}} |
+| Transacciones, concurrencia y representación numérica exacta | {{decisión}} |
+| Migración/relleno de datos/expansión y contracción/recuperación | {{mecanismo y responsables}} |
+| Eventos duraderos, outbox y reconciliación | {{efectos requeridos y mecanismo}} |
 
-## Identity and authority
+## Identidad y autoridad
 
-| Field | Decision |
+| Campo | Decisión |
 |---|---|
-| Identity provider/credential mechanism | {{decision}} |
-| Enrollment, recovery and abuse controls | {{decision}} |
-| Stronger-auth requirements and surface parity | {{decision}} |
-| Session/token lifetime, revocation and secure storage | {{decision}} |
-| Cookie, Bearer-only and webhook route contracts | {{decision}} |
-| Roles/capabilities and composite permissions | {{decision}} |
-| Membership changes and revalidation | {{decision}} |
-| Platform authority/impersonation if needed | {{decision or not applicable}} |
+| Proveedor de identidad/mecanismo de credenciales | {{decisión}} |
+| Registro, recuperación y controles contra abuso | {{decisión}} |
+| Requisitos de autenticación reforzada y equivalencia entre interfaces | {{decisión}} |
+| Duración de sesiones/tokens, revocación y almacenamiento seguro | {{decisión}} |
+| Contratos de rutas con cookies, exclusivamente Bearer y webhooks | {{decisión}} |
+| Roles/capacidades y permisos compuestos | {{decisión}} |
+| Cambios de pertenencia y revalidación | {{decisión}} |
+| Autoridad de plataforma/suplantación administrativa, si se necesita | {{decisión o no aplicable}} |
 
-## Commercial capability
+## Capacidad comercial
 
-| Field | Decision |
+| Campo | Decisión |
 |---|---|
-| Billing needed | {{yes/no and scope}} |
-| Provider, account model and API lifecycle | {{decision or not applicable}} |
-| Plans/entitlements/quotas and source of truth | {{decision}} |
-| Money, currencies, tax and rounding | {{decision}} |
-| Cancellation, refunds, disputes and retry policy | {{decision}} |
-| Idempotency window, unknown outcomes and reconciliation | {{decision}} |
-| Commercial-to-privacy interaction | {{explicit policy, not inferred}} |
+| Necesidad de facturación | {{sí/no y alcance}} |
+| Proveedor, modelo de cuentas y ciclo de vida de API | {{decisión o no aplicable}} |
+| Planes/derechos de acceso/cuotas y fuente de verdad | {{decisión}} |
+| Dinero, monedas, impuestos y redondeo | {{decisión}} |
+| Cancelación, reembolsos, disputas y política de reintentos | {{decisión}} |
+| Ventana de idempotencia, resultados desconocidos y reconciliación | {{decisión}} |
+| Interacción entre aspectos comerciales y privacidad | {{política explícita, no inferida}} |
 
-## Data lifecycle
+## Ciclo de vida de los datos
 
-| Category/finality | Owner/scope | Export | Suppression/conservation | Retention/start | Restore treatment |
+| Categoría/finalidad | Propietario/ámbito | Exportación | Supresión/conservación | Retención/inicio | Tratamiento al restaurar |
 |---|---|---|---|---|---|
-| {{category}} | {{owner}} | {{contract}} | {{policy}} | {{duration/event}} | {{method}} |
+| {{categoría}} | {{propietario}} | {{contrato}} | {{política}} | {{duración/evento}} | {{método}} |
 
-{{Include logs, uploads, backups, visitors without accounts and any external processing. State applicable policy/jurisdiction review, exceptions, shared ownership, request handling and grace only if chosen. No universal legal claims or fixed time defaults.}}
+{{Incluye registros, archivos subidos, copias de seguridad, visitantes sin cuenta y cualquier procesamiento externo. Indica revisión de política/jurisdicción aplicable, excepciones, propiedad compartida, atención de solicitudes y plazo de gracia solo si se ha elegido. Sin afirmaciones legales universales ni plazos fijos predeterminados.}}
 
-## Experience and language
+## Experiencia e idioma
 
-| Field | Decision |
+| Campo | Decisión |
 |---|---|
-| Product locales and engineering/documentation languages | {{decision}} |
-| Fallback, timezone, currency and formats | {{decision}} |
-| Accessibility target and verification | {{decision}} |
-| Devices, viewports, themes and design system | {{decision}} |
-| Offline/client compatibility and release policy | {{decision or not applicable}} |
-| Help/assistant capability and authority | {{decision or not applicable}} |
+| Idiomas del producto y de ingeniería/documentación | {{decisión}} |
+| Idioma alternativo, zona horaria, moneda y formatos | {{decisión}} |
+| Objetivo de accesibilidad y verificación | {{decisión}} |
+| Dispositivos, tamaños de ventana, temas y sistema de diseño | {{decisión}} |
+| Funcionamiento sin conexión/compatibilidad de clientes y política de versiones | {{decisión o no aplicable}} |
+| Capacidad y autoridad de ayuda/asistente | {{decisión o no aplicable}} |
 
-## Build, checks and CI
+## Compilación, comprobaciones y CI
 
-List commands verified in the actual project; placeholders are not executable instructions.
+Enumera los comandos verificados en el proyecto real; los marcadores de posición no son instrucciones ejecutables.
 
-| Purpose | Actual command/tool | Required environment | Evidence/status |
+| Finalidad | Comando/herramienta real | Entorno requerido | Evidencia/estado |
 |---|---|---|---|
-| Install/build | {{command}} | {{environment}} | {{status}} |
-| Format/lint/type or static analysis | {{command}} | {{environment}} | {{status}} |
-| Unit/contract tests | {{command}} | {{environment}} | {{status}} |
-| Integration/production-engine tests | {{command}} | {{environment}} | {{status}} |
-| UI/client/acceptance | {{command or flow}} | {{environment}} | {{status}} |
-| Architecture and dependency controls | {{command}} | {{environment}} | {{scope/limits}} |
-| Secret/private-data scan | {{command}} | {{environment}} | {{status}} |
+| Instalación/compilación | {{comando}} | {{entorno}} | {{estado}} |
+| Formato/lint/tipos o análisis estático | {{comando}} | {{entorno}} | {{estado}} |
+| Pruebas unitarias/de contratos | {{comando}} | {{entorno}} | {{estado}} |
+| Pruebas de integración/motor de producción | {{comando}} | {{entorno}} | {{estado}} |
+| UI/cliente/aceptación | {{comando o flujo}} | {{entorno}} | {{estado}} |
+| Controles de arquitectura y dependencias | {{comando}} | {{entorno}} | {{alcance/límites}} |
+| Búsqueda de secretos/datos privados | {{comando}} | {{entorno}} | {{estado}} |
 
-CI provider/runners, trust boundaries, permissions, required checks, artifact retention and owner: {{decisions}}. Test resource ownership and teardown/absence verification: {{mechanisms}}.
+Proveedor/agentes de ejecución de CI, límites de confianza, permisos, comprobaciones obligatorias, retención de artefactos y responsable: {{decisiones}}. Propiedad de recursos de prueba y desmontaje/verificación de ausencia: {{mecanismos}}.
 
-## Operations and gates
+## Operación y requisitos de aprobación
 
-| Field | Decision |
+| Campo | Decisión |
 |---|---|
-| Environments and production-shaped acceptance lab | {{decision}} |
-| SLO/SLI, budget of error and monitoring owner | {{decision}} |
-| RPO/RTO, backup coverage and restore cadence | {{decision}} |
-| Jobs/queue/retention health and escalation | {{decision}} |
-| Configuration/secrets management and rotation | {{decision}} |
-| Rollout, abort, rollback/forward recovery | {{decision}} |
-| Incident runbooks and responsible roles | {{decision}} |
+| Entornos y laboratorio de aceptación representativo de producción | {{decisión}} |
+| SLO/SLI, presupuesto de error y responsable de monitorización | {{decisión}} |
+| RPO/RTO, cobertura de copias y frecuencia de restauración | {{decisión}} |
+| Salud de trabajos/colas/retención y escalamiento | {{decisión}} |
+| Gestión y rotación de configuración/secretos | {{decisión}} |
+| Despliegue, interrupción, reversión/recuperación hacia delante | {{decisión}} |
+| Manuales de incidentes y roles responsables | {{decisión}} |
 
-| Gate | Required evidence | Owner | Current status |
+| Requisito de aprobación | Evidencia necesaria | Responsable | Estado actual |
 |---|---|---|---|
-| {{capability/release gate}} | {{evidence}} | {{owner}} | {{verified/pending/not applicable with reason}} |
+| {{requisito de capacidad/publicación}} | {{evidencia}} | {{responsable}} | {{verificado/pendiente/no aplicable con motivo}} |
 
-## Outstanding decisions
+## Decisiones pendientes
 
-| Decision | Affected work | Owner | Next action |
+| Decisión | Trabajo afectado | Responsable | Siguiente acción |
 |---|---|---|---|
-| {{unknown or none}} | {{impact}} | {{owner}} | {{resolution}} |
+| {{incógnita o ninguna}} | {{impacto}} | {{responsable}} | {{resolución}} |

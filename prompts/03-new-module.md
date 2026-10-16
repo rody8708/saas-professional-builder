@@ -1,22 +1,22 @@
-# 03 · Add a coherent module
+# 03 · Añadir un módulo coherente
 
-## Request
-Implement {{capability, workflows, actors, data, acceptance criteria}}.
+## Solicitud
+Implementa {{capacidad, flujos, actores, datos y criterios de aceptación}}.
 
-## Design
-Read the project rules/profile and [module guidance](../core/modules-and-apps.md). Define module ownership, public contracts, dependencies, data lifecycle, permissions and entry points. Choose an internal module or separate deployment from actual requirements; commercial packaging is optional.
+## Diseñar
+Lee las reglas y el perfil del proyecto y la [guía de módulos](../core/modules-and-apps.md). Define los responsables del módulo, sus contratos públicos, dependencias, ciclo de vida de los datos, permisos y puntos de entrada. Elige entre un módulo interno y un despliegue separado según los requisitos reales; la comercialización por módulos es opcional.
 
-Use native framework conventions. Design schema and tenant-safe relationships, transaction boundaries, idempotency, failure categories and any durable deliveries. Other modules access owned data through declared contracts.
+Usa las convenciones nativas del framework. Diseña el esquema y las relaciones seguras entre tenants, los límites transaccionales, la idempotencia, las categorías de fallo y las entregas duraderas necesarias. Los demás módulos acceden a los datos del módulo mediante contratos declarados.
 
-## Implement and verify
-- Revalidate permissions and tenant membership in operations; test cross-tenant reads, writes, aggregates and applicable jobs/caches/files.
-- Implement migrations, configuration examples without secrets, setup and recovery.
-- If personal data is stored, implement the selected export/suppression/retention policy.
-- If billing applies, resolve entitlement and quota in the backend; no invented plans.
-- Build the necessary UI/API/jobs with designed states and the agreed locales/accessibility.
-- Test business invariants, adapters on the supported production engine, concurrency and duplicate/retry cases where relevant.
-- Exercise the main flows through their real entry points in an isolated representative lab; inspect state and effects.
-- Remove owned test resources and verify absence.
+## Implementar y verificar
+- Revalida permisos y pertenencia al tenant en las operaciones; prueba lecturas, escrituras, agregados y los trabajos/cachés/archivos pertinentes entre tenants.
+- Implementa migraciones, ejemplos de configuración sin secretos, preparación y recuperación.
+- Si se almacenan datos personales, implementa la política de exportación/supresión/retención seleccionada.
+- Si se aplica facturación, resuelve derechos de acceso y cuotas en el backend; no inventes planes.
+- Construye la UI/API y los trabajos necesarios con los estados diseñados y los idiomas/accesibilidad acordados.
+- Prueba las invariantes de negocio, los adaptadores sobre el motor de producción soportado, la concurrencia y los casos de duplicados/reintentos cuando sean pertinentes.
+- Ejercita los flujos principales mediante sus puntos de entrada reales en un laboratorio aislado y representativo; inspecciona estado y efectos.
+- Elimina los recursos de prueba propios y verifica su ausencia.
 
-## Deliver
-Module contracts, implemented flows, data/permission model, tests and evidence, operator/developer docs and explicit gaps. A module is not complete merely because its first happy path works.
+## Entregar
+Contratos del módulo, flujos implementados, modelo de datos/permisos, pruebas y evidencia, documentación para operación/desarrollo y brechas explícitas. Un módulo no está completo por el mero hecho de que funcione su primer caso de éxito.

@@ -2,7 +2,7 @@
 
 Fecha: 2026-10-16. Alcance: instrucciones, catálogo, plantillas y controles del paquete independiente. Las pruebas no arrancan Zendrhax ni una aplicación SaaS, no acceden a bases operativas ni utilizan credenciales de proveedores.
 
-## Pruebas ejecutadas
+## Evidencia inicial de la copia independiente
 
 | Componente | Entorno | Resultado |
 |---|---|---|
@@ -17,9 +17,31 @@ Fecha: 2026-10-16. Alcance: instrucciones, catálogo, plantillas y controles del
 
 Las suites se ejecutaron desde esta copia por sus comandos documentados. .NET incluye cinco escenarios por el CLI real; Node y Python comprueban códigos de salida con procesos separados. La evidencia detallada de cada perfil se conserva en su `profile.json` y guía. Estos recuentos no son porcentajes de cobertura.
 
+## Preparación reproducible y CI del paquete
+
+La mejora de distribución añade MIT, documentación común en español, una guía de preparación y el workflow [Package CI](../.github/workflows/package-ci.yml). La licencia no cambia los permisos del repositorio ni desbloquea `main`.
+
+Validación local del cambio, 2026-10-16:
+
+| Componente | Entorno | Resultado |
+|---|---|---|
+| Instalación PHP desde cero con manifiesto y lock propios | Windows, PHP 8.5.1, Composer 2.9.5, PHPUnit 11.5.55 | 27 dependencias fijadas; auditoría sin avisos; 24 tests/455 aserciones y 12 tests del lector Clover; PASS |
+| Aislamiento y fallos del runner PHP | Python 3.13.6, Windows | 12 tests; fallos de comandos, timeout real con proceso hijo, selección de PHP, configuración heredada y limpieza; PASS |
+| Catálogo y regresiones | Python 3.13.6, Windows | Validador PASS y 23 tests aprobados |
+| Guard Node/TypeScript | Node 24.16.0, Windows | 28 tests; PASS |
+| Guard Python | Python 3.13.6, Windows | 18 tests; PASS |
+| Guard .NET/C# | SDK 8.0.413, PowerShell 7.6.5, Windows | 48 escenarios; sin warnings/errors; limpieza verificada; PASS |
+| Workflow del paquete | actionlint 1.7.12 | Sin errores; binario temporal con checksum verificado y eliminado |
+
+El nuevo runner PHP instala las herramientas en un directorio temporal, sin usar dependencias de otra aplicación. Ejecuta `validate --strict`, `audit --locked` y `check-platform-reqs`; no desactiva avisos ni ejecuta plugins/scripts de Composer. Conserva PHPUnit 11.5.55 y resuelve el lock para PHP 8.2.0. El número de aserciones del guard depende también de la profundidad del temporal en un caso que busca el manifiesto en directorios ascendentes; no es una métrica de cobertura.
+
+La revisión independiente reprodujo dos defectos del runner antes de su publicación: un timeout podía dejar un hijo vivo e impedir la limpieza en Windows, y Composer Unix podía usar el PHP de PATH en lugar del seleccionado. Se corrigieron la terminación del árbol de procesos y la invocación explícita de PHP. La regresión real verifica salida 124, limpieza antes del retorno y ausencia de la escritura tardía del hijo; otra ejecución real comprueba la propagación de salida 19. Los scripts PHP de Composer y los wrappers incompatibles tienen casos específicos.
+
+La ejecución remota del workflow permanece pendiente hasta tener una ejecución de GitHub Actions aprobada. La validación sintáctica y las pruebas locales no sustituyen esa evidencia.
+
 ## Reproducción
 
-Los comandos del [README](../README.md#verificar-este-paquete) y las guías de [PHP](../profiles/php/PROFILE.md), [Node/TypeScript](../profiles/node-typescript/PROFILE.md), [Python](../profiles/python/PROFILE.md) y [.NET](../profiles/dotnet/PROFILE.md) son los puntos de entrada reales de estas pruebas. El validador del catálogo solo lee los comandos declarados; no los ejecuta.
+Los comandos del [README](../README.md#verificar-este-paquete), la [guía de preparación](setup.md) y las guías de [PHP](../profiles/php/PROFILE.md), [Node/TypeScript](../profiles/node-typescript/PROFILE.md), [Python](../profiles/python/PROFILE.md) y [.NET](../profiles/dotnet/PROFILE.md) son los puntos de entrada reales de estas pruebas. El validador del catálogo solo lee los comandos declarados; no los ejecuta.
 
 PHPUnit se ejecutó con `--no-configuration`, el autoloader de dependencias y `--do-not-cache-result`. No se cargó el bootstrap del producto ni configuración de entorno. Los reportes Clover son fixtures XML sintéticos: prueban el parser y sus límites, no una medición de cobertura del SaaS. La diferencia de assertions entre runtimes proviene del harness; no indica una cobertura porcentual.
 

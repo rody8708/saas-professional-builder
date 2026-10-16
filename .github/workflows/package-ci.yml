@@ -1,0 +1,120 @@
+name: Package CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: package-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: Paquete (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            php: '8.2'
+          - os: windows-2025
+            php: '8.5'
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+
+    steps:
+      - name: Obtener fuentes
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Preparar Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13.6'
+
+      - name: Preparar Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.16.0'
+          package-manager-cache: false
+
+      - name: Preparar .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '8.0.413'
+
+      - name: Preparar PHP y Composer
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, mbstring, xml, xmlwriter
+          coverage: none
+          tools: composer:2.9.5
+
+      - name: Registrar runtimes
+        run: |
+          python --version
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --version
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          php --version
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          composer --version
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet --list-sdks
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Push-Location profiles/dotnet
+          try {
+            dotnet --version
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          } finally { Pop-Location }
+          $PSVersionTable.PSVersion.ToString()
+
+      - name: Validar catálogo y archivos
+        run: python -B scripts/validate_package.py
+
+      - name: Probar validador del paquete
+        run: python -B tests/test_package_validation.py
+
+      - name: Probar control Node y TypeScript
+        run: node --test profiles/node-typescript/tests/architecture-guard.test.mjs
+
+      - name: Probar control Python
+        run: python -B -m unittest discover -s profiles/python/tests -p "test_*.py" -v
+
+      - name: Probar aislamiento del runner PHP
+        run: python -B -m unittest discover -s profiles/php/tests -p "test_runner.py" -v
+
+      - name: Instalar dependencias PHP aisladas y probar controles
+        run: python -B profiles/php/tools/run-tests.py
+
+      - name: Probar control .NET
+        run: pwsh -NoProfile -File profiles/dotnet/tools/Invoke-Profile.ps1 -Mode Test
+
+      - name: Comprobar limpieza del paquete
+        if: always()
+        run: |
+          python -B scripts/validate_package.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git diff --exit-code
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $extra = @(git ls-files --others --exclude-standard)
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $ignored = @(git ls-files --others --ignored --exclude-standard)
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if ($extra.Count -gt 0 -or $ignored.Count -gt 0) {
+            throw 'Quedaron archivos temporales, ignorados o no versionados en el paquete.'
+          }

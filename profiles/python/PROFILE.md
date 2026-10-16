@@ -1,59 +1,59 @@
-# Python profile
+# Perfil Python
 
-Status: **profile controls validated**. This profile supplies an AST dependency checker and isolated regression tests. It does not supply a SaaS application, framework configuration, authentication, migrations, production database integration or deployment.
+Estado: **controles del perfil validados**. Este perfil aporta un detector de dependencias basado en AST y pruebas de regresión aisladas. No aporta una aplicación SaaS, configuración del framework, autenticación, migraciones, integración con la base de datos de producción ni despliegue.
 
-## Structure and framework adaptation
+## Estructura y adaptación al framework
 
-The starter policy assumes a package at `src/example_saas`, with `domain`, `application`, `infrastructure` and `presentation` subpackages. Configure the real package name and source root before adoption. Domain contains entities, value objects and port contracts; application coordinates use cases through those ports. Persistence implementations, provider clients and task adapters belong in infrastructure; HTTP/request/response integration belongs in presentation. A composition root wires concrete dependencies.
+La política inicial supone un paquete en `src/example_saas`, con subpaquetes `domain`, `application`, `infrastructure` y `presentation`. Configura el nombre real del paquete y la raíz del código fuente antes de adoptarla. El dominio contiene entidades, objetos de valor y contratos de puertos; la aplicación coordina los casos de uso a través de esos puertos. Las implementaciones de persistencia, clientes de proveedores y adaptadores de tareas pertenecen a infraestructura; la integración HTTP/petición/respuesta pertenece a presentación. Un punto de composición conecta las dependencias concretas.
 
-For FastAPI or Flask, handlers and framework request/schema conversion stay outside domain/application. SQLAlchemy sessions and repositories belong in infrastructure; pass an application-owned transaction port into use cases. For Django, keep ORM models, views, management commands and framework-specific signals in outer adapters, with explicit mapping to domain models. This profile does not presume that a Django model is a domain entity. Configure the project's real migrations and transaction strategy instead of inferring correctness from package layout.
+En FastAPI o Flask, los manejadores y la conversión de peticiones/esquemas del framework permanecen fuera de dominio y aplicación. Las sesiones y repositorios SQLAlchemy pertenecen a infraestructura; pasa a los casos de uso un puerto de transacciones definido por la aplicación. En Django, mantén modelos ORM, vistas, comandos de administración y señales del framework en adaptadores externos, con una conversión explícita a modelos de dominio. Este perfil no presupone que un modelo Django sea una entidad de dominio. Conserva el framework existente y configura las migraciones reales y la estrategia transaccional del proyecto; la estructura de paquetes no demuestra su corrección.
 
-Choose locked project dependencies and a project-local environment. The profile scripts and tests themselves need only Python's standard library; they do not install frameworks or packages.
+Fija las versiones de las dependencias del proyecto y usa un entorno local a él. Los scripts y las pruebas del perfil solo necesitan la biblioteca estándar de Python; no instalan frameworks ni paquetes.
 
-## Executable controls supplied
+## Controles ejecutables incluidos
 
-- `templates/architecture_guard.py`: parses Python source with `ast` without importing or executing application modules.
-- `templates/architecture-policy.json`: required package/root, domain/application policies, forbidden internal layers and known persistence/transport import prefixes.
-- `tests/test_architecture_guard.py`: `unittest` subprocess regressions in synthetic temporary projects; `TemporaryDirectory` teardown is checked after each run. No network, database or `.env` access.
+- `templates/architecture_guard.py`: analiza código fuente Python con `ast` sin importar ni ejecutar módulos de la aplicación.
+- `templates/architecture-policy.json`: paquete/raíz requeridos, políticas de dominio y aplicación, capas internas prohibidas y prefijos conocidos de importación de persistencia/transporte.
+- `tests/test_architecture_guard.py`: regresiones con `unittest` y subprocesos en proyectos sintéticos temporales; se comprueba la limpieza de `TemporaryDirectory` después de cada ejecución. Sin acceso a red, bases de datos ni `.env`.
 
-Both guarded layer directories must exist and contain `.py` files. Invalid policy paths, source symlinks, empty scans, encoding errors and syntax errors fail closed. Static imports, `from` imports, nested relative imports and package `__init__` imports are checked. Known literal `__import__` and `importlib.import_module` calls are inspected, including common import aliases. Nonliteral targets and relative dynamic imports through those recognized loaders are rejected as unresolved. Python comments and string contents do not become import nodes.
+Ambos directorios de capas inspeccionadas deben existir y contener archivos `.py`. Se rechazan rutas de política inválidas, enlaces simbólicos de archivos fuente, inspecciones vacías, errores de codificación y errores de sintaxis. Se comprueban importaciones estáticas, importaciones `from`, importaciones relativas anidadas e importaciones de `__init__` de paquetes. Se inspeccionan llamadas literales conocidas a `__import__` e `importlib.import_module`, incluidos alias comunes de importación. Los destinos no literales y las importaciones dinámicas relativas mediante esos cargadores reconocidos se rechazan por no poder resolverse. Los comentarios y contenidos de cadenas de Python no se convierten en nodos de importación.
 
-The scanner excludes `__pycache__`, `.venv`, `venv`, `.git` and `vendor`. Exit codes are `0` for configured checks passing, `1` for forbidden/unresolved imports, and `2` when inspection cannot complete. It reads policy JSON and source text only; deployment configuration is not part of this control.
+El detector excluye `__pycache__`, `.venv`, `venv`, `.git` y `vendor`. Los códigos de salida son `0` si pasan los controles configurados, `1` ante importaciones prohibidas o no resueltas y `2` si la inspección no puede completarse. Solo lee la política JSON y el código fuente; la configuración de despliegue no forma parte de este control.
 
-## Reproduce the profile validation
+## Reproducir la validación del perfil
 
-From this repository root:
+Desde la raíz de este repositorio:
 
 ```sh
 python -B -m unittest discover -s profiles/python/tests -p "test_*.py" -v
 ```
 
-Validated on Windows with Python 3.13.6: **18 tests passed, zero failures/skips**. Tests verify positive and negative subprocess exit codes, missing/empty roots, malformed policy, cross-layer persistence/transport dependencies, relative imports from nested modules and `__init__`, loader aliases, unresolved dynamic targets, syntax errors and comment/string handling. `-B` prevents bytecode artifacts in the source tree; temporary synthetic projects are removed.
+Validado en Windows con Python 3.13.6: **18 pruebas aprobadas, cero fallos u omisiones**. Las pruebas verifican códigos de salida positivos y negativos de subprocesos, raíces ausentes/vacías, políticas mal formadas, dependencias de persistencia/transporte entre capas, importaciones relativas desde módulos anidados y `__init__`, alias de cargadores, destinos dinámicos no resueltos, errores de sintaxis y tratamiento de comentarios/cadenas. `-B` evita artefactos de bytecode en el árbol fuente; se eliminan los proyectos sintéticos temporales.
 
-To adopt, copy the guard to `tools/`, copy and adapt the policy at the project root, then run:
+Para adoptarlo, copia el control a `tools/`, copia y adapta la política en la raíz del proyecto y ejecuta:
 
 ```sh
 python -B tools/architecture_guard.py --project-root . --config architecture-policy.json
 ```
 
-The package and directories must match the real project. Do not add empty placeholder source merely to satisfy a nonempty scan.
+El paquete y los directorios deben corresponder al proyecto real. No añadas archivos fuente vacíos únicamente para satisfacer una inspección no vacía.
 
-## Required companion checks and limits
+## Comprobaciones complementarias y límites
 
-This is AST syntax and configured direct-dependency analysis, not whole-program architecture enforcement. It does not resolve arbitrary reassignment of loader functions, `getattr`/`eval`/`exec`, import hooks, indirect façade/reexport dependencies, generated modules or monkey-patching. Common loader aliases are identified syntactically; shadowed names can require review. The forbidden external-module list is finite. Unknown libraries, custom persistence wrappers and unconfigured package boundaries require review and policy updates. `TYPE_CHECKING` imports are still architecture dependencies and are inspected.
+Este control analiza sintaxis AST y dependencias directas configuradas; no impone la arquitectura del programa completo. No resuelve reasignaciones arbitrarias de funciones de carga, `getattr`/`eval`/`exec`, mecanismos personalizados de importación, dependencias indirectas a través de fachadas/reexportaciones, módulos generados ni modificaciones de objetos en ejecución. Los alias comunes de cargadores se identifican por su sintaxis; los nombres ocultados por otras declaraciones pueden requerir revisión. La lista de módulos externos prohibidos es finita. Las bibliotecas desconocidas, los envoltorios personalizados de persistencia y los límites de paquetes no configurados requieren revisión y actualización de la política. Las importaciones dentro de `TYPE_CHECKING` siguen siendo dependencias arquitectónicas y se inspeccionan.
 
-Configure the actual project's linter, type checker and dependency-boundary tool with its Python version, source paths and supported frameworks. Run those tools against locked local dependencies. Syntax parsing by this script does not replace application tests, type checking, a build/package check, or a complete dependency graph. This profile does not claim those project tools have run.
+Configura las herramientas reales del proyecto para análisis de estilo, tipos y límites de dependencias con su versión de Python, rutas fuente y frameworks compatibles. Ejecútalas sobre dependencias locales de versiones fijadas. El análisis sintáctico de este script no sustituye las pruebas de la aplicación, la comprobación de tipos, la verificación de compilación/empaquetado ni un grafo completo de dependencias. Este perfil no afirma haber ejecutado esas herramientas del proyecto.
 
-## Project acceptance gates
+## Requisitos de aceptación del proyecto
 
-| Gate | Evidence required from the adopting SaaS |
+| Requisito | Evidencia exigida al SaaS que adopte el perfil |
 | --- | --- |
-| Architecture | Configured AST guard, real project typing/lint/dependency checks and review of contracts/adapters. |
-| Tenant isolation | Cross-tenant API/job/repository negative cases and stored-state checks on the selected production database engine. |
-| Authorization | Unauthorized/forbidden operations, membership revocation, ownership and authentication flow tests. |
-| Data integrity | Real migrations, rollback strategy, constraints, transaction handling and concurrency tests. |
-| Retry safety | Duplicate webhooks/jobs/submissions, idempotency, partial failure and safe retries without duplicate effects. |
-| Real entry point | Actual browser/HTTPS/worker replay, observable output and persisted state, synthetic data and payment-provider sandbox. |
-| Operations | Configuration validation, scheduler recovery, alert delivery, secret boundaries, restored backups and verified cleanup. |
+| Arquitectura | Control AST configurado, comprobaciones reales de tipos/estilo/dependencias y revisión de contratos y adaptadores. |
+| Aislamiento entre tenants | Casos negativos entre tenants por API/tareas/repositorios y comprobación del estado almacenado en el motor elegido para producción. |
+| Autorización | Operaciones sin autenticación o prohibidas, revocación de membresía, propiedad de recursos y pruebas del flujo de autenticación. |
+| Integridad de datos | Migraciones reales, estrategia de reversión, restricciones, gestión de transacciones y pruebas de concurrencia. |
+| Reintentos seguros | Webhooks/tareas/envíos duplicados, idempotencia, fallos parciales y reintentos seguros sin duplicar efectos. |
+| Entrada real | Repetición real del flujo por navegador/HTTPS/worker, salida observable y estado persistido, datos sintéticos y sandbox del proveedor de pagos. |
+| Operación | Validación de configuración, recuperación del planificador, entrega de alertas, límites de secretos, restauración de copias y limpieza comprobada. |
 
-Business behavior belongs in unit tests; repositories/migrations require isolated integration tests against the supported engines; authentication and payments require their own provider and negative-flow evidence. Choose project-specific test coverage thresholds and the actual runner/report format. This profile ships no coverage parser and does not assert product coverage. No active CI is supplied: wire these controls and the required project gates only after their configurations and dependencies exist, and report unexecuted checks explicitly.
+El comportamiento de negocio se verifica en pruebas unitarias; los repositorios y las migraciones requieren pruebas de integración aisladas contra los motores compatibles; autenticación y pagos necesitan evidencia de sus proveedores y flujos negativos. Elige umbrales de cobertura, ejecutor de pruebas y formato de informe propios del proyecto. Este perfil no incluye un lector de cobertura ni afirma cobertura del producto. El CI del paquete prueba estos controles; cada proyecto debe integrar sus comprobaciones cuando existan sus configuraciones y dependencias, y declarar explícitamente las no ejecutadas. Añadir un workflow no demuestra que una ejecución remota haya pasado; consulta los resultados registrados en [docs/validation.md](../../docs/validation.md).

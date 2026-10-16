@@ -1,16 +1,16 @@
-# 16 · Record an architecture decision
+# 16 · Registrar una decisión de arquitectura
 
-## Decision
-{{Problem, constraints, alternatives and decision owner}}
+## Decisión
+{{Problema, restricciones, alternativas y responsable de la decisión}}
 
-## Procedure
-1. Read the existing decision record and project profile. Separate facts, constraints, assumptions and preferences.
-2. Use [ADR.template.md](../templates/ADR.template.md) in the project's actual decision directory and naming convention.
-3. Record the concrete choice, affected ownership/contracts, alternatives and why they were rejected.
-4. Include benefits, costs, operational/security/data consequences, compatibility/migration and recovery.
-5. Specify evidence or an experiment that validates the decision, and guards/tests that can enforce its boundary.
-6. State status and authority: proposed does not mean approved or implemented. Link the implementation/evidence when available.
-7. Link from affected documentation. Supersede accepted decisions transparently rather than silently rewriting their history.
+## Procedimiento
+1. Lee el registro de decisiones existente y el perfil del proyecto. Separa hechos, restricciones, supuestos y preferencias.
+2. Usa [ADR.template.md](../templates/ADR.template.md) en el directorio real de decisiones del proyecto y con su convención de nombres.
+3. Registra la elección concreta, los responsables/contratos afectados, las alternativas y los motivos de su descarte.
+4. Incluye beneficios, costes, consecuencias operativas/de seguridad/de datos, compatibilidad/migración y recuperación.
+5. Especifica evidencia o un experimento que valide la decisión, y controles/pruebas que puedan hacer cumplir su límite.
+6. Indica estado y autoridad: propuesto no significa aprobado ni implementado. Enlaza la implementación/evidencia cuando esté disponible.
+7. Enlaza desde la documentación afectada. Sustituye las decisiones aceptadas de forma transparente, en lugar de reescribir su historia silenciosamente.
 
-## Deliver
-A concise decision record, connected docs and explicit follow-ups with owners. Do not implement a proposed choice merely because the ADR describes it.
+## Entregar
+Un registro conciso de la decisión, documentación conectada y acciones de seguimiento explícitas con responsables. No implementes una elección propuesta por el mero hecho de que el ADR la describa.

@@ -1,21 +1,21 @@
-# 01 · Bootstrap a professional SaaS
+# 01 · Crear la base de un SaaS profesional
 
-## Request
-Create the authorized foundation for {{product, users, first valuable workflow}} in {{target directory/repository}}.
+## Solicitud
+Crea la base autorizada para {{producto, usuarios, primer flujo de valor}} en {{directorio/repositorio de destino}}.
 
-## Read and decide
-Read existing project rules and [project adaptation](../core/project-adaptation.md). Select the agreed technical profile through the [profile registry](../profiles/registry.json); use its real framework conventions and tooling. Reuse confirmed requirements.
+## Leer y decidir
+Lee las reglas existentes del proyecto y la [guía de adaptación](../core/project-adaptation.md). Selecciona el perfil técnico acordado mediante el [catálogo de perfiles](../profiles/registry.json); utiliza las convenciones y herramientas reales de su framework. Reutiliza los requisitos confirmados.
 
-Record the relevant decisions with [the project profile](../templates/project-profile.template.md): stack, persistence, tenancy, identity, permissions, languages, clients, optional billing, data policy, CI, ownership and operational objectives. Ask only about unresolved choices that materially affect behavior or risk; continue independent authorized work.
+Registra las decisiones pertinentes con el [perfil del proyecto](../templates/project-profile.template.md): tecnologías, persistencia, modelo de tenants, identidad, permisos, idiomas, clientes, facturación opcional, política de datos, CI, responsables y objetivos operativos. Pregunta solo por decisiones pendientes que afecten de forma sustancial al comportamiento o al riesgo; continúa el trabajo independiente ya autorizado.
 
-## Implement
-1. Preserve existing code and conventions. For a new product, choose the simplest deployment shape that meets the requirements; separate services only for a demonstrated need.
-2. Add project governance and discoverable build/test commands from the selected profile. Do not invent or merely name checks that do not exist.
-3. Implement one complete initial workflow with actual entry point, application rules, persistence, authentication/authorization where needed, and usable UI/API.
-4. Enforce tenant boundaries in reads/writes and any jobs, caches or files used by that workflow.
-5. Add meaningful unit/integration tests, synthetic infrastructure and ownership-based cleanup. Add architecture/dependency controls with explicitly bounded coverage.
-6. Prepare a representative isolated acceptance environment and exercise success, denial, another tenant and relevant retry/failure cases.
-7. Document setup, contracts, operations, evidence and next milestones. Billing, native clients and assistants are included only if requested.
+## Implementar
+1. Conserva el código y las convenciones existentes. Para un producto nuevo, elige la estructura de despliegue más sencilla que cumpla los requisitos; separa servicios solo ante una necesidad demostrada.
+2. Añade las reglas del proyecto y comandos de compilación/pruebas fáciles de encontrar, tomados del perfil seleccionado. No inventes controles ni te limites a nombrar controles inexistentes.
+3. Implementa un primer flujo completo con su punto de entrada real, reglas de aplicación, persistencia, autenticación/autorización cuando corresponda y una UI/API utilizable.
+4. Aplica los límites entre tenants en lecturas/escrituras y en los trabajos, cachés o archivos que utilice ese flujo.
+5. Añade pruebas unitarias/de integración significativas, infraestructura sintética y limpieza basada en la propiedad de los recursos. Añade controles de arquitectura/dependencias con un alcance explícitamente delimitado.
+6. Prepara un entorno de aceptación aislado y representativo; ejercita los casos de éxito, denegación, otro tenant y los reintentos/fallos pertinentes.
+7. Documenta la preparación, los contratos, la operación, la evidencia y los siguientes hitos. Incluye facturación, clientes nativos y asistentes solo si se solicitan.
 
-## Deliver
-Profile and decisions, implemented workflow, files changed, checks actually run, sanitized acceptance evidence, cleanup result and remaining milestones. Distinguish the delivered foundation from a complete production product. Publishing and deployment follow the user's authorization.
+## Entregar
+Perfil y decisiones, flujo implementado, archivos modificados, verificaciones realmente ejecutadas, evidencia de aceptación sin datos sensibles, resultado de la limpieza e hitos pendientes. Distingue la base entregada de un producto completo en producción. La publicación y el despliegue siguen la autorización del usuario.
